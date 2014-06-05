@@ -458,7 +458,7 @@ class Wechat
 	}
 	
 	/**
-	 * 设置回复语音 chl
+	 * 设置回复语音 by chl
 	 * @param string $medianid
 	 */
 	public function voice($mediaid) {
