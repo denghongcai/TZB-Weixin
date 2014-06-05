@@ -122,7 +122,7 @@ class WechatVote {
 	 * @param  int $option 选项的编号
 	 */
 	private function showSuccess($option) {
-
+		$this->weObj->text('succ')->reply();
 	}
 
 	/**
@@ -164,5 +164,15 @@ class WechatVote {
 	 */
 	private function saveVote($option) {
 
+		require(BASEPATH . '/db.inc.php');
+		$db = DB::connect();
+		$count = $db->tzbvote('uid', $this->uid)->count('*');
+		if($count > 0) {
+			return false;
+		} else {
+			$data = array('uid' => $this->uid, 'option' => $option);
+			$db->tzbvote()->insert($data);
+			return true;
+		}
 	}
 }
