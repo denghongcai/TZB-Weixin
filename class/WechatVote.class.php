@@ -112,7 +112,7 @@ class WechatVote {
 			return true;
 		}
 		else {
-			$this->showError($option);
+			$this->showError(ERROR_OPTION);
 			return false;
 		}
 	}
