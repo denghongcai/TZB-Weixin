@@ -97,8 +97,8 @@ class WechatVote {
 	 * 向微信客户端展示候选项列表
 	 */
 	private function showOptions() {
-		$content = "回复 " . KEYWORD_GET_OPTION . "+编号 试听歌曲\n";
-		foreach ($options as $key => $option) {
+		$content = "回复 " . self::KEYWORD_GET_OPTION . "+编号 试听歌曲\n";
+		foreach (self::$options as $key => $option) {
 			$content .= ($key . " " . $option['Title'] . "\n");
 		}
 		$this->weObj->text($content)->reply();
