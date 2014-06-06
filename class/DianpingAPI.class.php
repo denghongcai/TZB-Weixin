@@ -21,7 +21,7 @@ class DianpingApiTool
      * @param string $appKey 
      * @param string $appSecret 
      */
-    public function __construct($apiUrl, $appKey, $appSecret, $defaultParams) {
+    public function __construct($apiUrl, $appKey, $appSecret, $defaultParams = array()) {
         $this->apiUrl = $apiUrl;
         $this->appKey = $appKey;
         $this->appSecret = $appSecret;
@@ -58,7 +58,6 @@ class DianpingApiTool
 
         $url= $this->apiUrl.'?appkey='.$this->appKey.'&sign='.$sign.$queryString;
 
-        print($url);
 
         $curl = curl_init();
 
