@@ -7,6 +7,8 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
  *
  * 在options数组中填入候选项
  */
+require(BASEPATH . '/db.inc.php');
+
 class WechatVote {
 
 	const KEYWORD_BEGIN_VOTE = '主题曲';
@@ -164,15 +166,13 @@ class WechatVote {
 	 */
 	private function saveVote($option) {
 
-		require(BASEPATH . '/db.inc.php');
 		$db = DB::connect();
 		$count = $db->tzbvote('uid', $this->uid)->count('*');
 		if($count > 0) {
 			return false;
 		} else {
-			$data = array('uid' => $this->uid, 'option' => $option);
-			$db->tzbvote()->insert($data);
-			return true;
+			$data = array('uid' => $this->uid, 'vote' => $option);
+			return (bool)$db->tzbvote()->insert($data);
 		}
 	}
 }
