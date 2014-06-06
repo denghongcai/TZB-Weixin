@@ -1,4 +1,6 @@
 <?php
+if (!defined('BASEPATH')) exit('No direct script access allowed');
+
 /**
  *	微信公众平台PHP-SDK, 官方API部分
  *  @author  dodge <dodgepudding@gmail.com>
