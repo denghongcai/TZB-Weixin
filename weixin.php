@@ -18,7 +18,7 @@
 	$type = $weObj->getRevType();
 	switch($type) {
 		case Wechat::MSGTYPE_TEXT:
-			$voteObj = new WechatVote($weObj);
+			$voteObj = new WechatVote($weObj );
 			if($voteObj->doVote())
 				exit;
 
@@ -28,6 +28,12 @@
 		case Wechat::MSGTYPE_EVENT:
 			break;
 		case Wechat::MSGTYPE_IMAGE:
+			break;
+		case Wechat::MSGTYPE_LOCATION:
+			$location = $weObj->getRevGeo();
+			$dpObj = new Dianping($weObj, $config['dianping'], $location['x'], $location['y']);
+			if($dpObj->doDianping())
+				exit;
 			break;
 		default:
 			$weObj->text("help info")->reply();
