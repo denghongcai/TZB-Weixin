@@ -23,16 +23,16 @@ class WechatVote {
 	 */
 	private static $options = array(
 		1 => array(
-				'Title'=>'金玉良缘',
-				'Description'=>'电视剧《金玉良缘》插曲',
-				'MusicUrl'=>'http://101.littlenut.sinaapp.com/weixin/test.mp3',
-				'HQMusicUrl'=>'http://101.littlenut.sinaapp.com/weixin/test.mp3'
+				'Title'=>'Sparks Fly',
+				'Description'=>'《Sparks Fly》由美国歌手Taylor Swift（泰勒斯威夫特）演唱',
+				'MusicUrl'=>'http://tzb-weixin.dhc.house/music/Sparks_Fly.mp3',
+				'HQMusicUrl'=>''
 			),
 		2 => array(
-				'Title'=>'test',
-				'Description'=>'des',
-				'MusicUrl'=>'url',
-				'HQMusicUrl'=>'hurl'
+				'Title'=>'such a fool',
+				'Description'=>'歌名：such a fool 歌手：george nozuka',
+				'MusicUrl'=>'http://tzb-weixin.dhc.house/music/such_a_fool.mp3',
+				'HQMusicUrl'=>''
 			),
 
 		);
@@ -97,7 +97,10 @@ class WechatVote {
 	 * 向微信客户端展示候选项列表
 	 */
 	private function showOptions() {
-		$content = serialize(self::$options);
+		$content = "回复 " . KEYWORD_GET_OPTION . "+编号 试听歌曲\n";
+		foreach ($options as $key => $option) {
+			$content .= ($key . " " . $option['Title'] . "\n");
+		}
 		$this->weObj->text($content)->reply();
 	}
 
@@ -141,7 +144,7 @@ class WechatVote {
 				break;
 
 			default:
-				$content = 'error' . $error;
+				$content = 'error:' . $error;
 				break;
 		}
 		$this->weObj->text($content)->reply();
