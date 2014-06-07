@@ -1,41 +1,34 @@
 <?php
-	define('BASEPATH', dirname(__FILE__));
 
-	require(BASEPATH . '/class/wechat.class.php');
-	require(BASEPATH . '/config.inc.php');
-	
-	function __autoload($class_name)
-	{
-	    require(BASEPATH . '/class/' . $class_name . '.class.php');
-	}
+define('BASEPATH', dirname(__FILE__));
 
-	$options = $config['wx'];
-	$weObj = new Wechat($options);
-	
-	//$weObj->valid();
-	$weObj->getRev();
+require(BASEPATH . '/class/wechat.class.php');
+require(BASEPATH . '/config.inc.php');
+require (BASEPATH . '/class/run.class.php');
 
-	$type = $weObj->getRevType();
-	switch($type) {
-		case Wechat::MSGTYPE_TEXT:
-			$voteObj = new WechatVote($weObj );
-			if($voteObj->doVote())
-				exit;
+function __autoload($class_name) {
+    require(BASEPATH . '/class/' . $class_name . '.class.php');
+}
 
-			$weObj->text("hello, I'm wechat")->reply();
-			exit;
-			break;
-		case Wechat::MSGTYPE_EVENT:
-			break;
-		case Wechat::MSGTYPE_IMAGE:
-			break;
-		case Wechat::MSGTYPE_LOCATION:
-			$location = $weObj->getRevGeo();
-			$dpObj = new Dianping($weObj, $config['dianping'], $location['x'], $location['y']);
-			if($dpObj->doDianping())
-				exit;
-			break;
-		default:
-			$weObj->text("help info")->reply();
-	}
+$options = $config['wx'];
+$weObj = new Wechat($options);
+//$weObj->valid();
+$weObj->getRev();
+
+$weRun = new WechatRun($weObj, &$config);
+$type = $weObj->getRevType();
+switch ($type) {
+    case Wechat::MSGTYPE_TEXT:
+        $weRun->onText();
+        break;
+    case Wechat::MSGTYPE_EVENT:
+        break;
+    case Wechat::MSGTYPE_IMAGE:
+        break;
+    case Wechat::MSGTYPE_LOCATION:
+        $weRun->onLocation();
+        break;
+    default:
+        $weObj->text("help info")->reply();
+}
 
