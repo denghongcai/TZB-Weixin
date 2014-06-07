@@ -15,7 +15,7 @@ $weObj = new Wechat($options);
 //$weObj->valid();
 $weObj->getRev();
 
-$weRun = new WechatRun($weObj, &$config);
+$weRun = new WechatRun($weObj, $config);
 $type = $weObj->getRevType();
 switch ($type) {
     case Wechat::MSGTYPE_TEXT:

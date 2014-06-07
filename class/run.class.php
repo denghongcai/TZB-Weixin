@@ -14,7 +14,7 @@ class WechatRun {
     private $user = false;  //包括fakeid, state, time
     private $ctime;
 
-    public function __construct($weObj, $config) {
+    public function __construct(&$weObj, &$config) {
         $this->weObj = $weObj;
         $this->config = $config;
         $this->fakeid = $weObj->getRevFrom();
@@ -24,7 +24,7 @@ class WechatRun {
         session_start();
         if (isset($_SESSION['user'])) {
             $user = unserialize($_SESSION['user']);
-            if (isset($user['time']) && $user['time'] + self::TIME_LENGTH < $this->ctime && $this->fakeid == $user['fakeid']) {
+            if (isset($user['time']) && $user['time'] + self::TIME_LENGTH > $this->ctime && $this->fakeid == $user['fakeid']) {
                 $this->user = $user;
             } else {
                 unset($_SESSION['user']);
@@ -32,17 +32,17 @@ class WechatRun {
         }
     }
 
-    public static function onSubscribe() {
+    public function onSubscribe() {
         
     }
 
-    public static function onUnsubscribe() {
+    public function onUnsubscribe() {
         
     }
 
-    public static function onText() {
-        $cotent = $this->weObj->getRevContent();
-        switch ($cotent) {
+    public function onText() {
+        $content = $this->weObj->getRevContent();
+        switch ($content) {
             case '下一页':
                 if ($this->user && $this->user['state'] == 'Dianping') {
                     $data = $this->user['Dianping'];
@@ -66,7 +66,7 @@ class WechatRun {
         exit;
     }
 
-    public static function onLocation() {
+    public function onLocation() {
         $location = $this->weObj->getRevGeo();
         $dpObj = new Dianping($this->weObj, $this->config['dianping'], $location['x'], $location['y']);
         if ($dpObj->doDianping()) {
