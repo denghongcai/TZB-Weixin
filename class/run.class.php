@@ -39,23 +39,27 @@ class WechatRun {
         $content = $this->weObj->getRevContent();
         switch ($content) {
             case '下一页':
-                $this->toNextPage();
+                if($this->toNextPage()) {
+                    exit;
+                }
                 break;
             
             case '签到':
                 $this->toSignIn();
-                break;
+                exit;
             
             default :
                 $voteObj = new WechatVote($this->weObj);
                 if ($voteObj->doVote()) {
                     $this->user['state'] = 'WechatVote';
                     $this->saveState();
-                } else {
-                    $this->weObj->text("hello, I'm wechat")->reply();
-                }
+                    exit;
+                } 
                 break;
         }
+        $this->weObj->text("hello, I'm wechat")->reply();
+        $this->user['state'] = false;
+        $this->saveState();
         exit;
     }
 
@@ -107,6 +111,9 @@ class WechatRun {
                 $this->user['Dianping']['page'] ++;
                 $this->saveState();
             }
+            return true;
+        } else {
+            return false;
         }
     }
     
