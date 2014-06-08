@@ -69,8 +69,8 @@ class WechatRun {
         $dpObj = new Dianping($this->weObj, $this->config['dianping'], $location['x'], $location['y']);
         if ($dpObj->doDianping()) {
            
-            $user['state'] = 'Dianping';
-            $user['Dianping'] = array(
+            $this->user['state'] = 'Dianping';
+            $this->user['Dianping'] = array(
                 'x' => $location['x'],
                 'y' => $location['y'],
                 'page' => 1,
