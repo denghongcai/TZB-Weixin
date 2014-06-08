@@ -23,6 +23,7 @@ switch ($type) {
         $weRun->onText();
         break;
     case Wechat::MSGTYPE_EVENT:
+        $weRun->onEvent();
         break;
     case Wechat::MSGTYPE_IMAGE:
         break;
