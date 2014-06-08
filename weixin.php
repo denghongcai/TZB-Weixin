@@ -4,7 +4,8 @@ define('BASEPATH', dirname(__FILE__));
 
 require(BASEPATH . '/class/wechat.class.php');
 require(BASEPATH . '/config.inc.php');
-require (BASEPATH . '/class/run.class.php');
+require(BASEPATH . '/class/run.class.php');
+require(BASEPATH . '/db.inc.php');
 
 function __autoload($class_name) {
     require(BASEPATH . '/class/' . $class_name . '.class.php');

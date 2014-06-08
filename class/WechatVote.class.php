@@ -9,7 +9,6 @@ if (!defined('BASEPATH'))
  *
  * 在options数组中填入候选项
  */
-require(BASEPATH . '/db.inc.php');
 
 class WechatVote {
 
