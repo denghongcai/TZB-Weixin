@@ -97,7 +97,7 @@ class WechatRun {
     }
 
     private function saveState() {
-        $_SESSION['user'] = serliaze($this->user);
+        $_SESSION['user'] = serialize($this->user);
     }
 
     private function toNextPage() {
