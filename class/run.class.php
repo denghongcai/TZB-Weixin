@@ -3,6 +3,7 @@
 if (!defined('BASEPATH')) {
     exit('No direct script access allowed');
 }
+require(BASEPATH . '/db.inc.php');
 
 class WechatRun {
 
@@ -10,59 +11,52 @@ class WechatRun {
 
     private $weObj;
     private $config;
-    private $fakeid;
-    private $user = false;  //包括fakeid, state, time
-    private $ctime;
+    private $user = array();  //包括fakeid, state, time
 
     public function __construct(&$weObj, &$config) {
         $this->weObj = $weObj;
         $this->config = $config;
-        $this->fakeid = $weObj->getRevFrom();
-        $this->ctime = time();
-        $uid = md5($this->fakeid);
+        
+        $fakeid = $weObj->getRevFrom();
+        $ctime = time();
+        
+        $uid = md5($fakeid);
         session_id($uid);
         session_start();
         if (isset($_SESSION['user'])) {
             $user = unserialize($_SESSION['user']);
-            if (isset($user['time']) && $user['time'] + self::TIME_LENGTH > $this->ctime && $this->fakeid == $user['fakeid']) {
-                $this->user = $user;
-            } else {
-                unset($_SESSION['user']);
+            if (!isset($user['time']) || $user['time'] + self::TIME_LENGTH < $ctime) {
+                $user['state'] = false;
             }
+        } else {
+            $user['fakeid'] = $fakeid;
+            $user['state'] = false;
         }
-    }
-
-    public function onSubscribe() {
-        
-    }
-
-    public function onUnsubscribe() {
-        
+        $user['time'] = $ctime;
+        $this->saveState();
     }
 
     public function onText() {
         $content = $this->weObj->getRevContent();
         switch ($content) {
             case '下一页':
-                if ($this->user && $this->user['state'] == 'Dianping') {
-                    $data = $this->user['Dianping'];
-                    $dpObj = new Dianping($this->weObj, $this->config['dianping'], $data['x'], $data['y'], $data['page'] + 1);
-                    if ($dpObj->doDianping()) {
-                        exit;
-                    }
-                }
+                $this->toNextPage();
+                break;
+            
+            case '签到':
+                $this->toSignIn();
                 break;
             
             default :
                 $voteObj = new WechatVote($this->weObj);
                 if ($voteObj->doVote()) {
-                    exit;
+                    $this->user['state'] = 'WechatVote';
+                    $this->saveState();
+                } else {
+                    $this->weObj->text("hello, I'm wechat")->reply();
                 }
+                break;
         }
-
-        
-
-        $this->weObj->text("hello, I'm wechat")->reply();
         exit;
     }
 
@@ -70,18 +64,90 @@ class WechatRun {
         $location = $this->weObj->getRevGeo();
         $dpObj = new Dianping($this->weObj, $this->config['dianping'], $location['x'], $location['y']);
         if ($dpObj->doDianping()) {
-            $user['fakeid'] = $this->fakeid;
-            $user['time'] = $this->ctime;
+           
             $user['state'] = 'Dianping';
             $user['Dianping'] = array(
                 'x' => $location['x'],
                 'y' => $location['y'],
                 'page' => 1,
             );
-            $_SESSION['user'] = serialize($user);
-            
+            $this->saveState();
+
             exit;
         }
+    }
+
+    public function onEvent() {
+        $event = $this->weObj->getRevEvent();
+        switch ($event['event']) {
+            case 'subscribe':
+                break;
+
+            case 'unsubscribe':
+                break;
+
+            case 'LOCATION':
+                $this->toEventLocation();
+                break;
+
+            default:
+                break;
+        }
+        exit;
+    }
+
+    private function saveState() {
+        $_SESSION['user'] = serliaze($this->user);
+    }
+
+    private function toNextPage() {
+        if ($this->user && $this->user['state'] == 'Dianping') {
+            $data = $this->user['Dianping'];
+            $dpObj = new Dianping($this->weObj, $this->config['dianping'], $data['x'], $data['y'], $data['page'] + 1);
+            if ($dpObj->doDianping()) {
+                $this->user['Dianping']['page'] ++;
+                $this->saveState();
+            }
+        }
+    }
+    
+    private function toSignIn() {
+        if(isset($this->user['location'])) {
+            $location = $this->user['location'];
+            $location['status'] = 0;
+            
+            $db = DB::connect();
+            unset($location['precision']);
+            if(!$db->user_location()->insert($location)) {
+                $content = 'database error';
+            } else if(!$location['status']) {
+                $content = '不在签到范围内，签到失败';
+            } else {
+                $content = '签到成功';
+            }
+        } else {
+            $content = '获取位置信息失败，请退出重试';
+        }
+        $this->weObj->text($content)->reply();
+        $this->user['state'] = 'SignIn';
+        $this->saveState();
+    }
+    
+    private function toSubscribe() {
+        
+    }
+
+    private function toUnsubscribe() {
+        
+    }
+
+    private function toEventLocation() {
+        $location = $this->weObj->getRevEventGeo();
+        $location['fakeid'] = $this->user['fakeid'];
+        $location['time'] = $this->user['time'];
+        $this->user['location'] = $location;
+        $this->saveState();
+        return $location;
     }
 
 }
