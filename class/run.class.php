@@ -32,6 +32,7 @@ class WechatRun {
             $user['state'] = false;
         }
         $user['time'] = $ctime;
+        $this->user = $user;
         $this->saveState();
     }
 
