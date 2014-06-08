@@ -58,7 +58,7 @@ class Dianping {
             array_push($items, $item);
         }
         $tip['Title'] = '为您找到' . $data['total_count'] . '家商户（第' . $this->params['page'] .  '页，共' . 
-                ceil($data['total_count'] / $this->params['limit']) . '页），回复“下页”继续浏览  以上数据来源“大众点评”';
+                ceil($data['total_count'] / $this->params['limit']) . '页），回复“下一页”继续浏览  以上数据来源“大众点评”';
         array_push($items, $tip);
         
         $this->weObj->news($items)->reply();
