@@ -9,14 +9,22 @@ if (!defined('BASEPATH'))
  *
  * 在options数组中填入候选项
  */
-
 class WechatVote {
 
-    const KEYWORD_BEGIN_VOTE = '主题曲';
-    const KEYWORD_GET_OPTION = '试听';
-    const KEYWORD_FINISH_VOTE = '投票';
+    const KEYWORD_BEGIN_VOTE = '吉祥物';
+    //const KEYWORD_GET_OPTION = '试听';
+    const KEYWORD_FINISH_VOTE = 'TP';
     const ERROR_OPTION = 'ERROR_OPTION';
     const ERROR_RPT = 'ERROR_RPT';
+    const ERROR_OVERTIMES = 'ERROR_OVERTIMES';
+    
+    const TEXT_SUCC = "恭喜您，已经成功为%s号作品投票成功！";
+    const TEXT_RPT = "不好意思哦亲，不能重复投票～";
+    const TEXT_OVERTIMES = "不好意思哦亲，最多只能投三票哦，多投作废票计～";
+    const TEXT_OPTION = "不好意思哦亲，没有这个选项～";
+    
+    const MAX_VOTES = 3;
+    const MAX_OPTION = 15;
 
     /**
      * 选项
@@ -62,26 +70,29 @@ class WechatVote {
             return true;
         }
 
-        if (stripos($this->text, self::KEYWORD_GET_OPTION) !== false) {
+//        if (stripos($this->text, self::KEYWORD_GET_OPTION) !== false) {
+//            $option = $this->getOptionFromText();
+//            if ($option !== false) {
+//                $this->showOptionDetails($option);
+//            } else {
+//                $this->showError(self::ERROR_OPTION);
+//            }
+//            return ture;
+//        } else 
+        if (stripos($this->text, self::KEYWORD_FINISH_VOTE) !== false) {
             $option = $this->getOptionFromText();
-            if ($option !== false) {
-                $this->showOptionDetails($option);
-            } else {
-                $this->showError(self::ERROR_OPTION);
-            }
-            return ture;
-        } else if (stripos($this->text, self::KEYWORD_FINISH_VOTE) !== false) {
-            $option = $this->getOptionFromText();
-            if ($option !== false && isset(self::$options[$option])) {
-                if ($this->saveVote($option))
-                    $this->showSuccess();
-                else
-                    $this->showError(self::ERROR_RPT);
+            if ($option !== false && $option <=self::MAX_OPTION) {
+                $state = $this->saveVote($option, $count);
+                if ($state === true) {
+                    $this->showSuccess($option, $count);
+                } else {
+                    $this->showError($state);
+                }
             }
             else {
                 $this->showError(self::ERROR_OPTION);
             }
-            return ture;
+            return true;
         } else {
             return false;
         }
@@ -119,8 +130,10 @@ class WechatVote {
      * 投票成功
      * @param  int $option 选项的编号
      */
-    private function showSuccess($option) {
-        $this->weObj->text('succ')->reply();
+    private function showSuccess($option, $count) {
+        $count = self::MAX_VOTES - $count;
+        $content = sprintf(self::TEXT_SUCC, $option) . "\n您还有 $count 次投票机会";
+        $this->weObj->text($content)->reply();
     }
 
     /**
@@ -129,13 +142,15 @@ class WechatVote {
      */
     private function showError($error) {
         switch ($error) {
-            case ERROR_OPTION:
-                $content = 'ERROR_OPTION';
+            case self::ERROR_OPTION:
+                $content = self::TEXT_OPTION;
                 break;
-            case ERROR_RPT:
-                $content = 'ERROR_RPT';
+            case self::ERROR_RPT:
+                $content = self::TEXT_RPT;
                 break;
-
+            case self::ERROR_OVERTIMES:
+                $content = self::TEXT_OVERTIMES;
+                break;
             default:
                 $content = 'error:' . $error;
                 break;
@@ -148,11 +163,13 @@ class WechatVote {
      * @return int 取出的第一个编号
      */
     private function getOptionFromText() {
+        $number = array();
         preg_match_all('/\d+/', $this->text, $number, PREG_SET_ORDER);
-        if (count($number) > 0)
+        if (count($number) > 0) {
             return (int) $number[0][0];
-        else
+        } else {
             return false;
+        }
     }
 
     /**
@@ -160,15 +177,19 @@ class WechatVote {
      * @param  int $option 投票编号
      * @return bool        是否投票成功
      */
-    private function saveVote($option) {
+    private function saveVote($option, &$count) {
 
         $db = DB::connect();
         $count = $db->tzbvote('uid', $this->uid)->count('*');
-        if ($count > 0) {
-            return false;
+        if ($count > self::MAX_VOTES) {
+            return self::ERROR_OVERTIMES;
+        } else if($db->tzbvote(array('uid'=>  $this->uid, 'vote'=>$option))->count('*') > 0) {
+            return self::ERROR_RPT;
         } else {
             $data = array('uid' => $this->uid, 'vote' => $option);
-            return (bool) $db->tzbvote()->insert($data);
+            $db->tzbvote()->insert($data);
+            $count++;
+            return true;
         }
     }
 
