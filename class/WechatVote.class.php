@@ -78,7 +78,7 @@ class WechatVote {
 //        } else 
         if (stripos($this->text, self::KEYWORD_FINISH_VOTE) !== false) {
             $option = $this->getOptionFromText();
-            if ($option !== false && $option <=self::MAX_OPTION) {
+            if ($option !== false && $option <=self::MAX_OPTION && $option > 0) {
                 $state = $this->saveVote($option, $count);
                 if ($state === true) {
                     $this->showSuccess($option, $count);
