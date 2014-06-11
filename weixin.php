@@ -1,5 +1,6 @@
 <?php
-
+echo $_GET['echostr'];
+exit;
 define('BASEPATH', dirname(__FILE__));
 
 require(BASEPATH . '/class/wechat.class.php');
@@ -28,9 +29,9 @@ switch ($type) {
     case Wechat::MSGTYPE_IMAGE:
         break;
     case Wechat::MSGTYPE_LOCATION:
-        $weRun->onLocation();
+        //$weRun->onLocation();
         break;
     default:
-        $weObj->text("help info")->reply();
+        //$weObj->text("help info")->reply();
 }
 

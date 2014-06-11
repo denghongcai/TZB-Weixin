@@ -39,15 +39,15 @@ class WechatRun {
     public function onText() {
         $content = $this->weObj->getRevContent();
         switch ($content) {
-            case '下一页':
-                if($this->toNextPage()) {
-                    exit;
-                }
-                break;
+//            case '下一页':
+//                if($this->toNextPage()) {
+//                    exit;
+//                }
+//                break;
             
-            case '签到':
-                $this->toSignIn();
-                exit;
+//            case '签到':
+//                $this->toSignIn();
+//                exit;
             
             default :
                 $voteObj = new WechatVote($this->weObj);
@@ -58,7 +58,7 @@ class WechatRun {
                 } 
                 break;
         }
-        $this->weObj->text("hello, I'm wechat")->reply();
+        //$this->weObj->text("hello, I'm wechat")->reply();
         $this->user['state'] = false;
         $this->saveState();
         exit;
@@ -85,6 +85,7 @@ class WechatRun {
         $event = $this->weObj->getRevEvent();
         switch ($event['event']) {
             case 'subscribe':
+                $this->toSubscribe();
                 break;
 
             case 'unsubscribe':
@@ -141,7 +142,13 @@ class WechatRun {
     }
     
     private function toSubscribe() {
+        $content = "您好，感谢关注“创青春”全国大学生创业大赛官方微信。2014年大赛由共青团中央、教育部、人力资源和社会保障部、中国科协、全国学联、湖北省人民政府主办，华中科技大学、共青团湖北省委、武汉东湖新技术开发区承办。
+中国梦 创业梦 我的梦！
+创新 创意 创造 创业 创青春！
+我们将为您全方位推送新闻动态、赛事通知、会务指南等精彩内容，并陆续推出“有问必答”、 “注册”、“赛事直通车”等个性化服务，敬请关注。如有任何疑问，欢迎给我们留言，我们将尽快回复您。
+（ps：提问超过时限小编就没办法回复给您了mo-委屈，小编不是故意的哦~有时候太忙就mo-晕所以如果可以的话您有很重要的问题如果没有及时收到回复烦请您再发一遍，一定会回得哦~谢谢啦~）";
         
+        $this->weObj->text($content)->reply();
     }
 
     private function toUnsubscribe() {
