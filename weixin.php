@@ -1,6 +1,6 @@
 <?php
-echo $_GET['echostr'];
-exit;
+//echo $_GET['echostr'];
+//exit;
 define('BASEPATH', dirname(__FILE__));
 
 require(BASEPATH . '/class/wechat.class.php');
@@ -14,7 +14,7 @@ function __autoload($class_name) {
 
 $options = $config['wx'];
 $weObj = new Wechat($options);
-//$weObj->valid();
+$weObj->valid();
 $weObj->getRev();
 
 $weRun = new WechatRun($weObj, $config);
