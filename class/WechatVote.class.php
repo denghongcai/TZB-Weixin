@@ -181,7 +181,7 @@ class WechatVote {
 
         $db = DB::connect();
         $count = $db->tzbvote('uid', $this->uid)->count('*');
-        if ($count > self::MAX_VOTES) {
+        if ($count >= self::MAX_VOTES) {
             return self::ERROR_OVERTIMES;
         } else if($db->tzbvote(array('uid'=>  $this->uid, 'vote'=>$option))->count('*') > 0) {
             return self::ERROR_RPT;
