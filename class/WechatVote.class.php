@@ -31,19 +31,16 @@ class WechatVote {
      * @var array
      */
     private static $options = array(
-        1 => array(
-            'Title' => 'Sparks Fly',
-            'Description' => '《Sparks Fly》由美国歌手Taylor Swift（泰勒斯威夫特）演唱',
-            'MusicUrl' => 'http://tzb-weixin.dhc.house/music/Sparks_Fly.mp3',
-            'HQMusicUrl' => ''
-        ),
-        2 => array(
-            'Title' => 'such a fool',
-            'Description' => '歌名：such a fool 歌手：george nozuka',
-            'MusicUrl' => 'http://tzb-weixin.dhc.house/music/such_a_fool.mp3',
-            'HQMusicUrl' => ''
+        0 => array(
+            'Title' => '为创青春大赛选出你心仪的吉祥物',
+            'Description' => '  自3月26日起，“创青春”全国大学生创业大赛组委会面向全国发布征集2014年“创青春”全国大学生创业大赛吉祥物的通知，截至目前，共收到来自全国各省市的100余件优秀作品。经大赛组委会初步评选，共有15件作品进入最终投票环节，现面向社会进行公开投票。
+       15个吉祥物形象积极向上，令人耳目一新。为您支持的作品投票，选出“创青春”大赛的吉祥物吧！',
+            //'PicUrl' => 'http://tzb-weixin.dhc.house/music/Sparks_Fly.mp3',
+            'Url' => 'http://mp.weixin.qq.com/s?__biz=MzA4MDM3NjExMQ==&mid=200173479&idx=1&sn=7c91e7feb70cbf4e5c4d71c6635f82f0#rd',
         ),
     );
+    private static $url = 'http://mp.weixin.qq.com/s?__biz=MzA4MDM3NjExMQ==&mid=200173479&idx=1&sn=7c91e7feb70cbf4e5c4d71c6635f82f0#rd';
+    
     private $weObj;
     private $text = '';
     private $uid = '';
@@ -102,11 +99,8 @@ class WechatVote {
      * 向微信客户端展示候选项列表
      */
     private function showOptions() {
-        $content = "回复 " . self::KEYWORD_GET_OPTION . "+编号 试听歌曲\n";
-        foreach (self::$options as $key => $option) {
-            $content .= ($key . " " . $option['Title'] . "\n");
-        }
-        $this->weObj->text($content)->reply();
+
+        $this->weObj->news(self::$options)->reply();
     }
 
     /**
