@@ -36,7 +36,7 @@ class WechatVote {
             'Description' => '  自3月26日起，“创青春”全国大学生创业大赛组委会面向全国发布征集2014年“创青春”全国大学生创业大赛吉祥物的通知，截至目前，共收到来自全国各省市的100余件优秀作品。经大赛组委会初步评选，共有15件作品进入最终投票环节，现面向社会进行公开投票。
        15个吉祥物形象积极向上，令人耳目一新。为您支持的作品投票，选出“创青春”大赛的吉祥物吧！',
             //'PicUrl' => 'http://tzb-weixin.dhc.house/music/Sparks_Fly.mp3',
-            'Url' => 'http://mp.weixin.qq.com/s?__biz=MzA4MDM3NjExMQ==&mid=200174203&idx=1&sn=8453f339186a808997437dd0777f65f3#rd',
+            'Url' => ' http://mp.weixin.qq.com/s?__biz=MzA4MDM3NjExMQ==&mid=200173479&idx=1&sn=7c91e7feb70cbf4e5c4d71c6635f82f0#rd',
         ),
     );
     private static $url = 'http://mp.weixin.qq.com/s?__biz=MzA4MDM3NjExMQ==&mid=200174203&idx=1&sn=8453f339186a808997437dd0777f65f3#rd';
