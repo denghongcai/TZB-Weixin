@@ -15,10 +15,11 @@ $options = $config['wx'];
 $weObj = new Wechat($options);
 //$weObj->valid();
 $weObj->getRev();
+$RevType = $weObj->getRevType();
 
 $weRun = new WechatRun($weObj, $config);
-$type = $weObj->getRevType();
-switch ($type) {
+
+switch ($RevType) {
     case Wechat::MSGTYPE_TEXT:
         $weRun->onText();
         break;

@@ -9,8 +9,16 @@ class Dianping {
     const ERROR_LOCATION = 'ERROR_LOCATION';
     const ERROR_GET_EMPTY = 'ERROR_GET_EMPTY';
     const ERROR_GET_ERROR = 'ERROR_GET_ERROR';
-
-    private $weObj;
+    
+    private $returnData = array(
+        'type' => 'news',
+        'data' => array(),
+        'error' => 0,
+        'state' => array(
+            'keyword' => 'Dianping',
+            'data' => array(),
+        )
+    );
     private $apiTool;
     private $params = array(
         'latitude' => '0',
@@ -21,13 +29,13 @@ class Dianping {
         'sort' => '7',
     );
 
-    public function __construct($weObj, $dianpingCfg, $x, $y, $page = 1, $sort = 7) {
-        $this->weObj = $weObj;
+    public function __construct($dianpingCfg, $x, $y, $page = 1, $sort = 7) {
         $this->apiTool = new DianpingApiTool($dianpingCfg['apiUrl'], $dianpingCfg['appKey'], $dianpingCfg['appSecret']);
         $this->params['latitude'] = $x;
         $this->params['longitude'] = $y;
         $this->params['page'] = $page;
         $this->params['sort'] = $sort;
+        $this->returnData['state']['data'] = $this->params;
     }
 
     public function doDianping() {
@@ -44,7 +52,7 @@ class Dianping {
                 $this->showDianping($revArr);
             }
         }
-        return true;
+        return $this->returnData;
     }
 
     private function showDianping($data) {
@@ -61,7 +69,9 @@ class Dianping {
                 ceil($data['total_count'] / $this->params['limit']) . '页），回复“下一页”继续浏览  以上数据来源“大众点评”';
         array_push($items, $tip);
         
-        $this->weObj->news($items)->reply();
+        $this->returnData['type'] = 'news';
+        $this->returnData['data'] = $items;
+        $this->returnData['error'] = 0;
     }
 
     private function showError($error) {
@@ -73,7 +83,9 @@ class Dianping {
                 $content  = $error;
                 break;
         }
-        $this->weObj->text($content)->reply();
+        $this->returnData['type'] = 'text';
+        $this->returnData['data'] = $content;
+        $this->returnData['error'] = 1;
     }
 
     private function getDianping() {
