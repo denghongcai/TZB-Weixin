@@ -4,21 +4,12 @@ if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 require(BASEPATH . '/class/DianpingAPI.class.php');
 
-class Dianping {
+class Dianping extends TZB_Base {
 
     const ERROR_LOCATION = 'ERROR_LOCATION';
     const ERROR_GET_EMPTY = 'ERROR_GET_EMPTY';
     const ERROR_GET_ERROR = 'ERROR_GET_ERROR';
-    
-    private $returnData = array(
-        'type' => 'news',
-        'data' => array(),
-        'error' => 0,
-        'state' => array(
-            'keyword' => 'Dianping',
-            'data' => array(),
-        )
-    );
+
     private $apiTool;
     private $params = array(
         'latitude' => '0',
@@ -38,7 +29,7 @@ class Dianping {
         $this->returnData['state']['data'] = $this->params;
     }
 
-    public function doDianping() {
+    public function getReturn() {
 
         if (empty($this->params['latitude']) || empty($this->params['longitude'])) {
             $this->showError(ERROR_LOCATION);
@@ -74,7 +65,7 @@ class Dianping {
         $this->returnData['error'] = 0;
     }
 
-    private function showError($error) {
+    protected function showError($error) {
         switch ($error) {
             case ERROR_GET_ERROR :
                 $content = '获取大众点评消息失败';

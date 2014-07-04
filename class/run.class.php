@@ -19,11 +19,11 @@ class WechatRun {
         ),
     ); 
     private $returnData = array(
-        'type' => 'news',
+        'type' => false,
         'data' => array(),
         'error' => 0,
         'state' => array(
-            'keyword' => 'Dianping',
+            'keyword' => '',
             'data' => array(),
         )
     );
@@ -52,8 +52,9 @@ class WechatRun {
     }
     
     public function __destruct() {
-        if(!empty($this->returnData)) {
-            $this->weObj->$this->returnData['type']($this->returnData['data'])->reply();
+        if(!empty($this->returnData['type'])) {
+            $type = $this->returnData['type'];
+            $this->weObj->$type($this->returnData['data'])->reply();
         }
         $this->saveState();
     }
@@ -87,6 +88,11 @@ class WechatRun {
 
             case 'unsubscribe':
                 break;
+            
+            case 'CLICK':
+                $menu = new Menu($event['key']);
+                $this->returnData = $menu->getReturn();
+                break;
 
             default:
                 break;
@@ -104,7 +110,7 @@ class WechatRun {
                 'x' => $data['latitude'],
                 'y' => $data['longitude'],
             );
-            $this->toDianping($location, $data['page']);
+            $this->toDianping($location, $data['page'] + 1);
         }
     }
     
@@ -119,7 +125,7 @@ class WechatRun {
     
     private function toDianping($location, $page = 1) {
         $dpObj = new Dianping($this->config['dianping'], $location['x'], $location['y'], $page);
-        $this->returnData = $dpObj->doDianping();
+        $this->returnData = $dpObj->getReturn();
         if (!$this->returnData['error']) {
             $this->user['state'] = $this->returnData['state'];
         } else {
