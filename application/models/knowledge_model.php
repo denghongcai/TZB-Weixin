@@ -42,7 +42,28 @@ class Knowledge_model extends CI_Model {
         $this->db->replace('Knowledge', $kdata);
         $knowid =  $this->db->insert_id();
         $tdata = $data['Tag'];
+        $tiddata = array();
         foreach($tdata as $row){
+            $query = $this->db->get_where('Tag', array('TagName'=>$row));
+            if($query->num_rows() == 0){
+                $this->db->insert('Tag',
+                    array(
+                        'TagName'=>$row
+                    )
+                );
+                array_push($tiddata, $this->db->insert_id());
+            }
+            else {
+                $query = $query->row_array();
+                array_push($tiddata, $query['TAGID']);
+            }
+        }
+        $this->db->delete('TagAssocKnow',
+            array(
+                'KNOWID'=>$knowid
+            )
+        );
+        foreach($tiddata as $row){
             $this->db->insert('TagAssocKnow',
                 array(
                     'KNOWID'=>$knowid,
@@ -68,28 +89,16 @@ class Knowledge_model extends CI_Model {
         return TRUE;
     }
 
-    function AddTag($tagname)
+    function GetTag($tagname = NULL)
     {
-        $this->db->insert('Tag',
-            array(
-                'TagName'=>$tagname
-            )
-        );
-        return $this->db->insert_id();
+        if(!$tagname){
+            $query = $this->db->get('Tag');
+        }
+        else {
+            $this->db->like('TagName', $tagname);
+            $query = $this->db->get('Tag');
+        }
+        return $query->result_array();
     }
 
-    function DeleteTag($tagid)
-    {
-        $this->db->delete('Tag',
-            array(
-                'TAGID'=>$tagid
-            )
-        );
-        $this->db->delete('TagAssocKnow',
-            array(
-                'TAGID'=>$tagid
-            )
-        );
-        return TRUE;
-    }
 }

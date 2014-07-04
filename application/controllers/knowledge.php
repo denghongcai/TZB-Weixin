@@ -25,9 +25,6 @@ class KNOWLEDGE extends MY_Controller {
         array_walk($data, array($this, 'ImplodeTag'));
         echo json_encode(
             array(
-                'draw'=>$this->input->get('draw'),
-                'recordsTotal'=>100,
-                'recordsFiltered'=>100,
                 'data'=>$data
             )
         );
@@ -40,9 +37,39 @@ class KNOWLEDGE extends MY_Controller {
 
     public function UpdateKnowledge()
     {
+        $action = $this->input->get('action', TRUE);
         $this->load->view('includes/header');
-        $this->load->view('adminUpdateKnowledge');
+        switch($action)
+        {
+            case 'Add':
+                $data = $this->input->post(NULL, TRUE);
+                array_map('trim', $data);
+                $data['Tag'] = explode(',',$data['Tag']);
+                $this->knowledge_model->ReplaceKnowledge($data);
+                $this->session->set_flashdata(
+                    array(
+                        'error'=>0
+                    )
+                );
+                redirect(base_url('knowledge/UpdateKnowledge'));
+                break;
+            default:
+                $data = array();
+                $data['error'] = $this->session->flashdata('error');
+                $this->load->view('adminUpdateKnowledge', $data);
+        }
         $this->load->view('includes/footer');
+    }
+
+    public function GetTagAjax()
+    {
+        $TagName = $this->input->post('TagName', TRUE);
+        $data = $this->knowledge_model->GetTag($TagName);
+        $jsondata = array();
+        foreach($data as $row) {
+            array_push($jsondata, $row['TagName']);
+        }
+        echo json_encode($jsondata);
     }
 }
 

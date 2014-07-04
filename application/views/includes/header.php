@@ -4,10 +4,13 @@
     <link rel="stylesheet" href="<?=base_url('css/metro-bootstrap.min.css')?>">
     <link rel="stylesheet" href="<?=base_url('css/metro-bootstrap-responsive.min.css')?>">
     <link rel="stylesheet" href="<?=base_url('css/iconFont.min.css')?>">
+    <link rel="stylesheet" href="<?=base_url('css/tagmanager.css')?>">
     <link rel="stylesheet" href="<?=base_url('css/global.css')?>">
     <script src="<?=base_url('js/jquery.min.js')?>"></script>
     <script src="<?=base_url('js/jquery.widget.min.js')?>"></script>
     <script src="<?=base_url('js/jquery.dataTables.js')?>"></script>
+    <script src="<?=base_url('js/tagmanager.js')?>"></script>
+    <script src="<?=base_url('js/typeahead.min.js')?>"></script>
     <script src="<?=base_url('js/metro.min.js')?>"></script>
 </head>
 <body class="metro">
@@ -34,15 +37,15 @@
                             <li>
                                 <a class="dropdown-toggle title" href="#">内容管理</a>
                                 <ul class="dropdown-menu" data-role="dropdown">
-                                    <li><a href=""><i class="icon-book"></i>浏览全部内容</a></li>
-                                    <li><a href=""><i class="icon-plus-2"></i>增加内容</a></li>
+                                    <li><a href="<?=base_url('content/ContentList')?>"><i class="icon-book"></i>浏览全部内容</a></li>
+                                    <li><a href="<?=base_url('content/UpdateContent')?>"><i class="icon-plus-2"></i>增加内容</a></li>
                                 </ul>
                             </li>
                             <li>
                                 <a class="dropdown-toggle title" href="#">知识库管理</a>
                                 <ul class="dropdown-menu" data-role="dropdown">
                                     <li><a href="<?=base_url('knowledge/KnowledgeList')?>"><i class="icon-book"></i>浏览知识库</a></li>
-                                    <li><a href=""><i class="icon-plus-2"></i>增加知识库条目</a></li>
+                                    <li><a href="<?=base_url('knowledge/UpdateKnowledge')?>"><i class="icon-plus-2"></i>增加知识库条目</a></li>
                                 </ul>
                             </li>
                             <li>

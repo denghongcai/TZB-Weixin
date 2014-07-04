@@ -20,8 +20,8 @@ class LOGIN extends CI_Controller {
         }
         else {
             $loginInfo = array(
-                'username'=>$data['username'],
-                'password'=>$data['password']
+                'UserName'=>$data['UserName'],
+                'PassWord'=>$data['PassWord']
             );
             if($this->user_model->LoginAction($loginInfo)){
                 redirect(base_url('home'));

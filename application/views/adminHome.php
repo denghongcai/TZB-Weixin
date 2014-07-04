@@ -4,12 +4,12 @@
             <table class="table">
                 <thead>
                     <tr>
-                        <th class="text-left">总访问人数</th>
+                        <th class="text-left">总独立使用人数</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td>呵呵呵</td>
+                        <td><?=$uvTotal?></td>
                     </tr>
                 </tbody>
                 <tfoot></tfoot>
@@ -35,7 +35,7 @@
     </div>
     <div class="row">
         <div class="span8">
-            <table class="table">
+            <table class="table hovered">
                 <thead>
                     <tr>
                         <th class="text-left">最新反馈</th>
