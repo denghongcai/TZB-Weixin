@@ -7,7 +7,7 @@ abstract class TZB_Base {
         'data' => array(),
         'error' => 0,
         'state' => array(
-            'keyword' => 'Dianping',
+            'keyword' => false,
             'data' => array(),
         )
     );
