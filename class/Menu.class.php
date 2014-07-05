@@ -13,14 +13,22 @@ class Menu extends TZB_Base {
     
     public function __construct($key) {
         $this->keyword = $key;
-        $this->returnData['state'] = $key;
+        $this->returnData['state']['keyword'] = $key;
     }
     
     public function getReturn() {
         switch ($this->keyword) {
             case 'TZB_GUIDE':
+            case 'TZB_MEETING':
+            case 'TZB_ACTIVITY':
+            case 'TZB_POLICY':
+            case 'TZB_PERSON':
+            case 'TZB_TEAM':
+            case 'TZB_PIC':
+            case 'TZB_CONNECT':
+                $content = new Content($this->keyword);
                 $this->returnData['type'] = 'text';
-                $this->returnData['data'] = self::$str['TZB_GUIDE'];
+                $this->returnData = $content->getReturn();
                 break;
             case 'TZB_WEATHER':
                 $weather = new Weather();

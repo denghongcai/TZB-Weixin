@@ -26,7 +26,6 @@ class Dianping extends TZB_Base {
         $this->params['longitude'] = $y;
         $this->params['page'] = $page;
         $this->params['sort'] = $sort;
-        $this->returnData['state']['data'] = $this->params;
     }
 
     public function getReturn() {
@@ -63,11 +62,13 @@ class Dianping extends TZB_Base {
         $this->returnData['type'] = 'news';
         $this->returnData['data'] = $items;
         $this->returnData['error'] = 0;
+        $this->returnData['state']['keyword'] = 'Dianping';
+        $this->returnData['state']['data'] = $this->params;
     }
 
     protected function showError($error) {
         switch ($error) {
-            case ERROR_GET_ERROR :
+            case self::ERROR_GET_ERROR :
                 $content = '获取大众点评消息失败';
                 break;
             default:

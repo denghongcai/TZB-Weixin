@@ -33,8 +33,8 @@ class WechatRun {
         $this->config = $config;
         
         $fakeid = $weObj->getRevFrom();
-        $ctime = $weObj->getRevCtime();
-        
+        //$ctime = $weObj->getRevCtime();
+        $ctime = time();
         session_id(md5($fakeid));
         session_start();
         if (isset($_SESSION['user'])) {
@@ -56,6 +56,7 @@ class WechatRun {
             $type = $this->returnData['type'];
             $this->weObj->$type($this->returnData['data'])->reply();
         }
+        $this->user['state'] = $this->returnData['state'];
         $this->saveState();
     }
     
@@ -104,13 +105,23 @@ class WechatRun {
     }
 
     private function toNextPage() {
-        if ($this->user && $this->user['state']['keyword'] == 'Dianping') {
-            $data = $this->user['state']['data'];
-            $location = array(
-                'x' => $data['latitude'],
-                'y' => $data['longitude'],
-            );
-            $this->toDianping($location, $data['page'] + 1);
+        if (empty($this->user['state']['keyword'])) {
+            return false;
+        }
+        switch ($this->user['state']['keyword']) {
+            case 'Dianping': 
+                $data = $this->user['state']['data'];
+                $location = array(
+                    'x' => $data['latitude'],
+                    'y' => $data['longitude'],
+                );
+                $this->toDianping($location, $data['page'] + 1);
+                break;
+            case 'Content':
+                $data = $this->user['state']['data'];
+                $content = new Content($data['keyword'], $data['page'] + 1);
+                $this->returnData = $content->getReturn();
+                break;
         }
     }
     
@@ -126,10 +137,5 @@ class WechatRun {
     private function toDianping($location, $page = 1) {
         $dpObj = new Dianping($this->config['dianping'], $location['x'], $location['y'], $page);
         $this->returnData = $dpObj->getReturn();
-        if (!$this->returnData['error']) {
-            $this->user['state'] = $this->returnData['state'];
-        } else {
-            $this->user['state'] = false;
-        }
     }
 }

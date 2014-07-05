@@ -11,9 +11,9 @@ define("PDO_PASS", DB_PASS);
 class DB {
 
 	public static function connect() {
-
+                                    
 		$pdo = new PDO(PDO_DSN, PDO_USER, PDO_PASS);
-
+                                    $pdo->exec("SET NAMES 'utf8';"); 
 		return new NotORM($pdo);
 	}
 }
