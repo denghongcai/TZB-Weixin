@@ -12,10 +12,5 @@ abstract class TZB_Base {
         )
     );
     
-    public function getReturn() {
-        return $this->returnData;
-    }
-
-
-    abstract protected function showError($error);
+    abstract public function getReturn() ;
 }

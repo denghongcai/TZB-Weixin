@@ -2,13 +2,6 @@
 if (!defined('BASEPATH')) exit('No direct script access allowed');
 
 class Menu extends TZB_Base {
-    static private $str = array(
-        'TZB_GUIDE' => "TZB_GUIDE",
-        'TZB_MEETING' => "TZB_MEETING",
-        'TZB_CONNECT' => "TZB_CONNECT",
-        
-    );
-    
     private $keyword;
     
     public function __construct($key) {
@@ -34,17 +27,32 @@ class Menu extends TZB_Base {
                 $weather = new Weather();
                 $this->returnData = $weather->getReturn();
                 break;
+            case 'TZB_AMUSE':
+                $this->returnData['type'] = 'text';
+                $this->returnData['data'] = '发送当前位置信息即可查看周边商铺';
+                $this->returnData['state']['keyword'] = 'Dianping';
+                break;
+            case 'TZB_MAP':
+                $this->returnData['type'] = 'text';
+                $this->returnData['data'] = '请发送【出发地】的位置信息';
+                $this->returnData['state']['keyword'] = 'Map';
+                $this->returnData['state']['data'] = array(
+                    'fromcoord' => '',
+                    'from' => '',
+                    'to' => '',
+                    'tocoord' => '',
+                    'policy' => '1',
+                    'referer' => '',
+                );
+                break;
             default :
                 $this->returnData['type'] = 'text';
-                $this->returnData['data'] = 'default';
+                $this->returnData['data'] = $this->keyword;
                 break;
         }
         
         return $this->returnData;
     }
     
-    protected function showError($error) {
-        ;
-    }
 }
 

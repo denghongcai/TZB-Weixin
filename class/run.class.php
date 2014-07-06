@@ -78,7 +78,12 @@ class WechatRun {
 
     public function onLocation() {
         $location = $this->weObj->getRevGeo();
-        $this->toDianping($location);
+        if($this->user['state']['keyword'] == 'Map') {
+            $map = new Map($this->user['state']['data'], $location);
+            $this->returnData = $map->getReturn();
+        } else {
+            $this->toDianping($location);
+        }
     }
 
     public function onEvent() {

@@ -38,7 +38,7 @@ class Content extends TZB_Base {
         }
         $this->returnData['type'] = 'text';
         $this->returnData['data'] = $content;
-        $this->returnData['error'] = 1;;
+        $this->returnData['error'] = 1;
     }
     
     private function getContent() {
@@ -48,20 +48,28 @@ class Content extends TZB_Base {
         if(empty($category)) {
             return self::EEEOR_KEYWORD;
         } else {
-            $table = $this->db->CategoryAssocContent()->where('CATEGORYID', $category['CATEGORYID'])->order('Time DESC');
-            if(count($table) < $offset) {
+            $table = $this->db->CategoryAssocContent()->where('CATEGORYID', $category['CATEGORYID'])->order('AddTime DESC');
+            $pages = ceil(count($table) / self::PAGECOUNT);
+            if($pages < $data['page']) {
                 return self::ERROR_PAGE;
             }
             $items = array();
+            $item['Title'] = $category['CategoryName'];
+            array_push($items, $item);
+            
             $contentid = $table->limit(self::PAGECOUNT, $offset);
+            $i = 1;
             foreach($contentid as $id) {
                 $content = $this->db->Content('CONTENTID', $id['CONTENTID'])->limit(1)->fetch();
-                $item['Title'] = $content['Title'];
+                $item['Title'] = $i . ". " . $content['Title'];
                 $item['Description'] = $content['Content'];
                 $item['PicUrl'] = '';
                 $item['Url'] = '';
                 array_push($items, $item);
+                $i++;
             }
+            $foot['Title'] = '第' . $data['page'] .  '页，共' . $pages . '页，回复“下一页”继续浏览';
+            array_push($items, $foot);
             $this->returnData['type'] = 'news';
             $this->returnData['data'] = $items;
             return true;
