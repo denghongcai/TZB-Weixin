@@ -3,7 +3,7 @@
 if (!defined('BASEPATH')) exit('No direct script access allowed');
 
 class Content extends TZB_Base {
-    
+    const SITE = 'http://tzb-weixin.dhc.house/';
     const PAGECOUNT = 5;
     const ERROR_PAGE = 'ERROR_PAGE';
     const EEEOR_KEYWORD = 'EEEOR_KEYWORD';
@@ -64,7 +64,7 @@ class Content extends TZB_Base {
                 $item['Title'] = $i . ". " . $content['Title'];
                 $item['Description'] = $content['Content'];
                 $item['PicUrl'] = '';
-                $item['Url'] = urlencode(BASEPATH . '/content.php?id=' . $id['CONTENTID']);
+                $item['Url'] = urlencode(self::SITE . '/content.php?id=' . $id['CONTENTID']);
                 array_push($items, $item);
                 $i++;
             }
