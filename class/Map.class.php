@@ -5,8 +5,8 @@ class Map extends TZB_Base {
     const APIURL = 'http://apis.map.qq.com/uri/v1/routeplan?';
     const CEOCODERAPI = 'http://apis.map.qq.com/ws/geocoder/v1/?';
     const APIKEY = 'M3BBZ-XNDRJ-6LLF6-KG5JG-GY3A5-2UFNP';
-    const PIC_BUS = 'https://mp.weixin.qq.com/cgi-bin/getimgdata?token=362991427&msgid=&mode=large&source=file&fileId=200219556&ow=-1';
-    const PIC_CAR = 'https://mp.weixin.qq.com/cgi-bin/getimgdata?token=362991427&msgid=&mode=large&source=file&fileId=200219555&ow=-1';
+    const PIC_BUS = 'http://tzb-weixin.dhc.house/pic/bus.png';
+    const PIC_CAR = 'http://tzb-weixin.dhc.house/pic/car.png';
     private $data = array(
            'fromcoord' => '',
            'from' => '',
@@ -48,7 +48,7 @@ class Map extends TZB_Base {
     private function getNews() {
         $items = array();
             array_push($items, array(
-                'Title' => '导航：' . $this->data['from'] . '->' . $this->data['to'],
+                'Title' => $this->data['from'] . '->' . $this->data['to'],
             ));
             array_push($items, array(
                 'Title' => '公交导航',

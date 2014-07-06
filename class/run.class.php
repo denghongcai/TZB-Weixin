@@ -68,9 +68,10 @@ class WechatRun {
                 break;
             
             default :
-                $this->returnData['type'] = 'text';
+                /*$this->returnData['type'] = 'text';
                 $this->returnData['data'] = 'hello world';
-                $this->user['state']['keyword'] = 'text';
+                $this->user['state']['keyword'] = 'text';*/$menu = new Menu($content);
+                $this->returnData = $menu->getReturn();
                 break;
         }
         exit;
