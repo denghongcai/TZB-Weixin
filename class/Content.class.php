@@ -64,7 +64,7 @@ class Content extends TZB_Base {
                 $item['Title'] = $i . ". " . $content['Title'];
                 $item['Description'] = $content['Content'];
                 $item['PicUrl'] = '';
-                $item['Url'] = '';
+                $item['Url'] = urlencode(BASEPATH . '/content.php?id=' . $id['CONTENTID']);
                 array_push($items, $item);
                 $i++;
             }

@@ -1,5 +1,5 @@
 <?php
-
+if (!defined('BASEPATH')) exit('No direct script access allowed');
 class Weather extends TZB_Base {
     const APIURL= "http://api.map.baidu.com/telematics/v3/weather?";
     private $params = array(
