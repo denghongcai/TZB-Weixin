@@ -13,7 +13,7 @@ class Content_model extends CI_Model {
         return $query->result_array();
     }
 
-    function GetContent($categoryid = NULL)
+    function GetContentByCategory($categoryid = NULL)
     {
         $data = array();
         $query = $this->db->get_where('CategoryAssocContent',
@@ -33,18 +33,48 @@ class Content_model extends CI_Model {
         return $data;
     }
 
+    function GetContentByID($contentid = NULL)
+    {
+        $query = $this->db->get_where('Content',
+            array(
+                'CONTENTID'=>$contentid
+            )
+        );
+        return $query->row_array();
+    }
+
     function ReplaceContent($data)
     {
         $cdata = array();
+        if(isset($data['CONTENTID'])){
+            $cdata['CONTENTID'] = $data['CONTENTID'];
+        }
         $cdata['Title'] = $data['Title'];
         $cdata['Author'] = $data['Author'];
         $cdata['Content'] = $data['Content'];
         $this->db->replace('Content', $cdata);
-        $contentid =  $this->db->insert_id();
-        $cadata = $data['Category'];
-        $query = $this->db->insert('CategoryAssocContent',
+        if(isset($data['Category'])){
+            $contentid =  $this->db->insert_id();
+            $cadata = $data['Category'];
+            $query = $this->db->insert('CategoryAssocContent',
+                array(
+                    'CATEGORYID'=>$cadata,
+                    'CONTENTID'=>$contentid
+                )
+            );
+        }
+        return TRUE;
+    }
+
+    function DeleteContent($contentid)
+    {
+        $this->db->delete('Content',
             array(
-                'CATEGORYID'=>$cadata,
+                'CONTENTID'=>$contentid
+            )
+        );
+        $this->db->delete('ContentAssocContent',
+            array(
                 'CONTENTID'=>$contentid
             )
         );

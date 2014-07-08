@@ -20,7 +20,14 @@ class Content extends MY_Controller {
 
     public function ContentListAjax()
     {
-        $data = $this->content_model->GetContent($this->input->get('categoryid', TRUE));
+        $data = $this->content_model->GetContentByCategory($this->input->get('categoryid', TRUE));
+        foreach($data as &$row){
+            if(isset($row['CONTENTID'])){
+                $cid = $row['CONTENTID'];
+                unset($row['CONTENTID']);
+                $row['DT_RowId'] = 'row_'.$cid;
+            }
+        }
         echo json_encode(
             array(
                 'data'=>$data
@@ -31,7 +38,8 @@ class Content extends MY_Controller {
     public function UpdateContent()
     {
         $action = $this->input->get('action', TRUE);
-        $this->load->view('includes/header');
+        if($action == FALSE)
+            $action = $this->input->post('action', TRUE);
         switch($action)
         {
             case 'Add':
@@ -45,13 +53,34 @@ class Content extends MY_Controller {
                 );
                 redirect(base_url('content/UpdateContent'));
                 break;
+            case 'edit':
+                $data = $this->input->post('data', TRUE);
+                array_map("trim", $data);
+                $data['CONTENTID'] = substr($this->input->post('id', TRUE), 4);
+                $this->content_model->ReplaceContent($data);
+                $data = $this->content_model->GetContentByID($data['CONTENTID']);
+                $data['DT_RowId'] = 'row_'.$data['CONTENTID'];
+                unset($data['CONTENTID']);
+                $jsondata = array();
+                $jsondata['row'] = $data;
+                //echo json_encode($jsondata);
+                break;
+            case 'remove':
+                $data = $this->input->post('id', TRUE);
+                foreach($data as $row){
+                    $this->content_model->DeleteContent(substr($row,4));
+                }
+                $data = array();
+                echo json_encode($data);
+                break;
             default:
+                $this->load->view('includes/header');
                 $data = array();
                 $data['error'] = $this->session->flashdata('error');
                 $data['category'] = $this->content_model->GetCategory();
                 $this->load->view('adminUpdateContent', $data);
+                $this->load->view('includes/footer');
         }
-        $this->load->view('includes/footer');
     }
 }
 
