@@ -43,10 +43,6 @@ class Weather extends TZB_Base {
         return $content;
     }
     
-    protected function showError($error) {
-        ;
-    }
-    
     private function getWeather() {
         $url = self::APIURL . http_build_query($this->params);
         $jsondata = file_get_contents($url);

@@ -3,7 +3,7 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
 
 class Map extends TZB_Base {
     const APIURL = 'http://apis.map.qq.com/uri/v1/routeplan?';
-    const CEOCODERAPI = 'http://apis.map.qq.com/ws/geocoder/v1/?';
+    const GEOCODERAPI = 'http://apis.map.qq.com/ws/geocoder/v1/?';
     const APIKEY = 'M3BBZ-XNDRJ-6LLF6-KG5JG-GY3A5-2UFNP';
     const PIC_BUS = 'http://tzb-weixin.dhc.house/pic/bus.png';
     const PIC_CAR = 'http://tzb-weixin.dhc.house/pic/car.png';
@@ -69,7 +69,7 @@ class Map extends TZB_Base {
             'get_poi'   => 0,
             'key'   => self::APIKEY,
         );
-        $url = self::CEOCODERAPI . http_build_query($params);
+        $url = self::GEOCODERAPI . http_build_query($params);
         $jdata = file_get_contents($url);
         $data = json_decode($jdata, true);
         if($data['status'] != 0) {
