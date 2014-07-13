@@ -20,7 +20,7 @@ class User_model extends CI_Model {
     function LoginAction($userInfo)
     {
         $userInfo['PassWord'] = sha1($userInfo['PassWord']);
-        var_dump($userInfo);
+
         $query = $this->db->get_where('User', $userInfo);
         if ( $query->num_rows() !== 1 ){
            return FALSE;
