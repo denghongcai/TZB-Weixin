@@ -43,7 +43,7 @@ class Content extends MY_Controller {
         switch($action)
         {
             case 'Add':
-                $data = $this->input->post(NULL, TRUE);
+                $data = $this->input->post(NULL, FALSE);
                 array_map("trim", $data);
                 $this->content_model->ReplaceContent($data);
                 $this->session->set_flashdata(

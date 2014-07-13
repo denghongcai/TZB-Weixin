@@ -73,7 +73,7 @@ class Content_model extends CI_Model {
                 'CONTENTID'=>$contentid
             )
         );
-        $this->db->delete('ContentAssocContent',
+        $this->db->delete('CategoryAssocContent',
             array(
                 'CONTENTID'=>$contentid
             )
