@@ -30,6 +30,7 @@
                     <?php endforeach?>
                 </select>
             </div>
+            <textarea name="Content" id="Content" style="display: none"></textarea>
             <input type="submit" value="提交">
             <div style="width:620px;height: 300px;margin-top:10px;">
                 <script type="text/plain" id="myEditor" style="width: 100%;height:300px;bottom:20px">
@@ -39,9 +40,17 @@
         </fieldset>
     </form>
 </div>
+<script src="<?=base_url('js/base64.min.js')?>"></script>
 <script type="text/javascript">
     window.UMEDITOR_HOME_URL = "<?=base_url('umeditor')?>";
     $(function(){
         var um = UM.getEditor('myEditor');
+        $('#contentForm').submit(function(e){
+            e.preventDefault();
+            Base64.extendString();
+            var strings = um.getContent().toBase64();
+            $('#Content').text(strings);
+            this.submit();
+        })
     })
 </script>

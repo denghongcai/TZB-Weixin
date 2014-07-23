@@ -44,6 +44,7 @@ class Content extends MY_Controller {
         {
             case 'Add':
                 $data = $this->input->post(NULL, FALSE);
+                $data['Content'] = base64_decode($data['Content']);
                 array_map("trim", $data);
                 $this->content_model->ReplaceContent($data);
                 $this->session->set_flashdata(
@@ -54,7 +55,7 @@ class Content extends MY_Controller {
                 redirect(base_url('content/UpdateContent'));
                 break;
             case 'edit':
-                $data = $this->input->post('data', TRUE);
+                $data = $this->input->post('data', FALSE);
                 array_map("trim", $data);
                 $data['CONTENTID'] = substr($this->input->post('id', TRUE), 4);
                 $this->content_model->ReplaceContent($data);

@@ -100,6 +100,7 @@
                             { sExtends: "editor_remove", editor: editor }
                         ]
                     },
+                    *
                     'language': {
                         'processing': '正在获取数据...',
                         'search': '搜索',
