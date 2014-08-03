@@ -25,6 +25,8 @@ class Content extends MY_Controller {
             if(isset($row['CONTENTID'])){
                 $cid = $row['CONTENTID'];
                 unset($row['CONTENTID']);
+                $row['Edit'] = '<a href="'.base_url('content/UpdateContent/'.$cid).'">编辑</a>';
+                $row['Remove'] = '<a href="'.base_url('content/UpdateContent?action=remove&id='.$cid).'">删除</a>';
                 $row['DT_RowId'] = 'row_'.$cid;
             }
         }
@@ -35,7 +37,7 @@ class Content extends MY_Controller {
         );
     }
 
-    public function UpdateContent()
+    public function UpdateContent($id = null)
     {
         $action = $this->input->get('action', TRUE);
         if($action == FALSE)
@@ -55,30 +57,42 @@ class Content extends MY_Controller {
                 redirect(base_url('content/UpdateContent'));
                 break;
             case 'edit':
-                $data = $this->input->post('data', FALSE);
+                $data = $this->input->post(NULL, FALSE);
                 array_map("trim", $data);
-                $data['CONTENTID'] = substr($this->input->post('id', TRUE), 4);
+                $data['CONTENTID'] = $this->input->get('id', TRUE);
+                $data['Content'] = base64_decode($data['Content']);
+                unset($data['Category']);
                 $this->content_model->ReplaceContent($data);
                 $data = $this->content_model->GetContentByID($data['CONTENTID']);
-                $data['DT_RowId'] = 'row_'.$data['CONTENTID'];
-                unset($data['CONTENTID']);
-                $jsondata = array();
-                $jsondata['row'] = $data;
+                $this->session->set_flashdata(
+                    array(
+                        'error'=>0
+                    )
+                );
+                redirect(base_url('content/UpdateContent'));
                 //echo json_encode($jsondata);
                 break;
             case 'remove':
-                $data = $this->input->post('id', TRUE);
-                foreach($data as $row){
-                    $this->content_model->DeleteContent(substr($row,4));
-                }
-                $data = array();
-                echo json_encode($data);
+                $data = $this->input->get('id', TRUE);
+                $this->content_model->DeleteContent($data);
+                redirect(base_url('content/ContentList'));
                 break;
             default:
                 $this->load->view('includes/header');
                 $data = array();
                 $data['error'] = $this->session->flashdata('error');
                 $data['category'] = $this->content_model->GetCategory();
+                if($id != null){
+                    $data['data'] = $this->content_model->GetContentByID($id);
+                    $data['action'] = base_url('content/UpdateContent?action=edit&id='.$id);
+                }
+                else{
+                    $data['data'] = array();
+                    $data['data']['Title'] = "";
+                    $data['data']['Author'] = "";
+                    $data['data']['Content'] = "";
+                    $data['action'] = base_url('content/UpdateContent?action=Add');
+                }
                 $this->load->view('adminUpdateContent', $data);
                 $this->load->view('includes/footer');
         }

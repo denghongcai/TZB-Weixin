@@ -5,6 +5,8 @@
                 <th class="text-left">问题</th>
                 <th class="text-left">Tag</th>
                 <th class="text-left">答案</th>
+                <th class="text-left">编辑</th>
+                <th class="text-left">删除</th>
             </tr>
         </thead>
         <tbody>
@@ -14,6 +16,8 @@
                 <th class="text-left">问题</th>
                 <th class="text-left">Tag</th>
                 <th class="text-left">答案</th>
+                <th class="text-left">编辑</th>
+                <th class="text-left">删除</th>
             </tr>
         </tfoot>
     </table>
@@ -28,7 +32,9 @@
                 'columns': [
                     {'data': 'Question'},
                     {'data': 'Tag'},
-                    {'data': 'Answer'}
+                    {'data': 'Answer'},
+                    {'data': 'Edit'},
+                    {'data': 'Remove'}
                 ],
                 'language': {
                     'processing': '正在获取数据...',

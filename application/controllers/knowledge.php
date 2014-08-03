@@ -27,6 +27,8 @@ class KNOWLEDGE extends MY_Controller {
             if(isset($row['KNOWID'])){
                 $kid = $row['KNOWID'];
                 unset($row['KNOWID']);
+                $row['Edit'] = '<a href="'.base_url('knowledge/UpdateKnowledge/'.$kid).'">编辑</a>';
+                $row['Remove'] = '<a href="'.base_url('knowledge/UpdateKnowledge?action=remove&id='.$kid).'">删除</a>';
                 $row['DT_RowId'] = 'row_'.$kid;
             }
         }
@@ -42,7 +44,7 @@ class KNOWLEDGE extends MY_Controller {
         $value['Tag'] = implode(', ', $value['Tag']);
     }
 
-    public function UpdateKnowledge()
+    public function UpdateKnowledge($kid = null)
     {
         $action = $this->input->get('action', TRUE);
         if($action == FALSE){
@@ -63,25 +65,40 @@ class KNOWLEDGE extends MY_Controller {
                 redirect(base_url('knowledge/UpdateKnowledge'));
                 break;
             case 'edit':
-                $kid = $this->input->post('id', TRUE);
-                $data = $this->input->post('data', TRUE);
+                $kid = $this->input->get('id', TRUE);
+                $data = $this->input->post(NULL, TRUE);
                 array_map('trim', $data);
-                $data['KNOWID'] = substr($kid, 4);
+                $data['KNOWID'] = $kid;
                 $data['Tag'] = explode(',',$data['Tag']);
                 $this->knowledge_model->ReplaceKnowledge($data);
+                $this->session->set_flashdata(
+                    array(
+                        'error'=>0
+                    )
+                );
+                redirect(base_url('knowledge/UpdateKnowledge'));
                 break;
             case 'remove':
-                $kid = $this->input->post('id', TRUE);
-                foreach($kid as $row){
-                    $this->knowledge_model->DeleteKnowledge(substr($row, 4));
-                }
-                $jsondata = array();
-                echo json_encode($jsondata);
+                $kid = $this->input->get('id', TRUE);
+                $this->knowledge_model->DeleteKnowledge($kid);
+                redirect('knowledge/KnowledgeList');
                 break;
             default:
                 $this->load->view('includes/header');
                 $data = array();
                 $data['error'] = $this->session->flashdata('error');
+                if($kid != null){
+                    $data['data'] = $this->knowledge_model->GetKnowledgeByID($kid);
+                    $data['data']['Tag'] = implode(', ', $data['data']['Tag']);
+                    $data['action'] = base_url('knowledge/UpdateKnowledge?action=edit&id='.$kid);
+                }
+                else{
+                    $data['data'] = array();
+                    $data['data']['Question'] = "";
+                    $data['data']['Answer'] = "";
+                    $data['data']['Tag'] = "";
+                    $data['action'] = base_url('knowledge/UpdateKnowledge?action=Add');
+                }
                 $this->load->view('adminUpdateKnowledge', $data);
                 $this->load->view('includes/footer');
         }

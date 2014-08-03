@@ -33,6 +33,33 @@ class Knowledge_model extends CI_Model {
         return $data;
     }
 
+    function GetKnowledgeByID($kid)
+    {
+        $kquery = $this->db->get_where('Knowledge',
+            array(
+                'KNOWID'=>$kid
+            )
+        );
+        $krow = $kquery->row_array();
+        $tag = array();
+        $taquery = $this->db->get_where('TagAssocKnow',
+            array(
+                'KNOWID'=>$krow['KNOWID']
+            )
+        );
+        foreach($taquery->result_array()as $trow){
+            $tquery = $this->db->get_where('Tag',
+                array(
+                    'TAGID'=>$trow['TAGID']
+                )
+            );
+            $tresult = $tquery->row_array();
+            array_push($tag, $tresult['TagName']);
+        }
+        $krow['Tag'] = $tag;
+        return $krow;
+    }
+
     function ReplaceKnowledge($data)
     {
         $kdata = array();

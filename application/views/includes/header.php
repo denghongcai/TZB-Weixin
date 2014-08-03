@@ -11,8 +11,6 @@
     <script src="<?=base_url('js/jquery.min.js')?>"></script>
     <script src="<?=base_url('js/jquery.widget.min.js')?>"></script>
     <script src="<?=base_url('js/jquery.dataTables.js')?>"></script>
-    <script src="<?=base_url('js/dataTables.tableTools.js')?>"></script>
-    <script src="<?=base_url('js/dataTables.editor.min.js')?>"></script>
     <script src="<?=base_url('js/tagmanager.js')?>"></script>
     <script src="<?=base_url('js/typeahead.min.js')?>"></script>
     <script src="<?=base_url('js/metro.min.js')?>"></script>
