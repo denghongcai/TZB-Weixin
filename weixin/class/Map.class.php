@@ -5,8 +5,8 @@ class Map extends TZB_Base {
     const APIURL = 'http://apis.map.qq.com/uri/v1/routeplan?';
     const GEOCODERAPI = 'http://apis.map.qq.com/ws/geocoder/v1/?';
     const APIKEY = 'M3BBZ-XNDRJ-6LLF6-KG5JG-GY3A5-2UFNP';
-    const PIC_BUS = 'http://tzb-weixin.dhc.house/pic/bus.png';
-    const PIC_CAR = 'http://tzb-weixin.dhc.house/pic/car.png';
+    const PIC_BUS = 'http://littlenut.sinaapp.com/weixin/pic/bus.png';
+    const PIC_CAR = 'http://littlenut.sinaapp.com/weixin/pic/car.png';
     private $data = array(
            'fromcoord' => '',
            'from' => '',
@@ -29,14 +29,16 @@ class Map extends TZB_Base {
             $this->data['to'] = $this->getName($this->data['tocoord']);
             $this->returnData['type'] = 'news';
             $this->returnData['data'] = $this->getNews();
+            $this->returnData['state']['keyword'] = false;
+            $this->returnData['state']['data'] = NULL;
         } else {
             $this->data['fromcoord'] = $this->location['x'] . ',' . $this->location['y'];
             $this->data['from'] = $this->getName($this->data['fromcoord']);
             $this->returnData['type'] = 'text';
             $this->returnData['data'] = '请发送【目的地】的位置信息';
+            $this->returnData['state']['keyword'] = 'Map';
+            $this->returnData['state']['data'] = $this->data;
         }
-        $this->returnData['state']['keyword'] = 'Map';
-        $this->returnData['state']['data'] = $this->data;
         return $this->returnData;
     }
     

@@ -11,11 +11,11 @@
 	interface JsonSerializable {
 		function jsonSerialize();
 	}
-}
+}*/
 //PHP5.4
 interface JsonSerializable {
 		function jsonSerialize();
-}*/
+}
 include_once dirname(__FILE__) . "/NotORM/Structure.php";
 include_once dirname(__FILE__) . "/NotORM/Cache.php";
 include_once dirname(__FILE__) . "/NotORM/Literal.php";
