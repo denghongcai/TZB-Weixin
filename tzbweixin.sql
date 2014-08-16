@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 3.4.10.1deb1
+-- version 3.3.8.1
 -- http://www.phpmyadmin.net
 --
--- 主机: localhost
--- 生成日期: 2014 年 07 月 05 日 01:47
--- 服务器版本: 5.5.37
--- PHP 版本: 5.3.10-1ubuntu3.12
+-- 主机: w.rdc.sae.sina.com.cn:3307
+-- 生成日期: 2014 年 08 月 16 日 11:11
+-- 服务器版本: 5.5.23
+-- PHP 版本: 5.3.3
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
-SET time_zone = "+00:00";
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -17,7 +16,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- 数据库: `tzbweixin`
+-- 数据库: `app_littlenut`
 --
 
 -- --------------------------------------------------------
@@ -30,16 +29,16 @@ CREATE TABLE IF NOT EXISTS `CategoryAssocContent` (
   `CATEGORYASSOCID` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `CATEGORYID` int(11) NOT NULL,
   `CONTENTID` int(11) NOT NULL,
+  `AddTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`CATEGORYASSOCID`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=18 ;
 
 --
 -- 转存表中的数据 `CategoryAssocContent`
 --
 
-INSERT INTO `CategoryAssocContent` (`CATEGORYASSOCID`, `CATEGORYID`, `CONTENTID`) VALUES
-(1, 1, 1),
-(2, 1, 2);
+INSERT INTO `CategoryAssocContent` (`CATEGORYASSOCID`, `CATEGORYID`, `CONTENTID`, `AddTime`) VALUES
+(17, 1, 21, '2014-08-16 11:11:03');
 
 -- --------------------------------------------------------
 
@@ -52,17 +51,16 @@ CREATE TABLE IF NOT EXISTS `Content` (
   `Title` varchar(100) NOT NULL,
   `Author` varchar(50) NOT NULL,
   `Content` text NOT NULL,
-  `AddTime` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP,
+  `AddTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`CONTENTID`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=22 ;
 
 --
 -- 转存表中的数据 `Content`
 --
 
 INSERT INTO `Content` (`CONTENTID`, `Title`, `Author`, `Content`, `AddTime`) VALUES
-(1, '你好', '我', '哈哈哈', '0000-00-00 00:00:00'),
-(2, 'dasd', 'asdsa', '<p>这里我可以写一些输入提示</p>', '0000-00-00 00:00:00');
+(21, '测试', 'chl', '<p>这里我可以写一些输入提示</p><p>测试</p>', '2014-08-16 11:11:03');
 
 -- --------------------------------------------------------
 
@@ -73,16 +71,24 @@ INSERT INTO `Content` (`CONTENTID`, `Title`, `Author`, `Content`, `AddTime`) VAL
 CREATE TABLE IF NOT EXISTS `ContentCategory` (
   `CATEGORYID` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `CategoryName` varchar(50) NOT NULL,
-  PRIMARY KEY (`CATEGORYID`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+  `CategoryKey` varchar(50) NOT NULL,
+  PRIMARY KEY (`CATEGORYID`),
+  KEY `CategoryKey` (`CategoryKey`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
 
 --
 -- 转存表中的数据 `ContentCategory`
 --
 
-INSERT INTO `ContentCategory` (`CATEGORYID`, `CategoryName`) VALUES
-(1, 'hehe'),
-(2, 'haha');
+INSERT INTO `ContentCategory` (`CATEGORYID`, `CategoryName`, `CategoryKey`) VALUES
+(1, '创青春指南', 'TZB_GUIDE'),
+(2, '会务安排', 'TZB_MEETING'),
+(3, '特别活动', 'TZB_ACTIVITY'),
+(4, '联系我们', 'TZB_CONNECT'),
+(5, '创政策', 'TZB_POLICY'),
+(6, '创青春达人', 'TZB_PERSON'),
+(7, '创team资讯', 'TZB_TEAM'),
+(8, '图片汇编', 'TZB_PIC');
 
 -- --------------------------------------------------------
 
@@ -95,17 +101,14 @@ CREATE TABLE IF NOT EXISTS `Knowledge` (
   `Question` text NOT NULL,
   `Answer` text NOT NULL,
   PRIMARY KEY (`KNOWID`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=15 ;
 
 --
 -- 转存表中的数据 `Knowledge`
 --
 
 INSERT INTO `Knowledge` (`KNOWID`, `Question`, `Answer`) VALUES
-(1, 'asd', 'das'),
-(2, 'cbv', 'a1'),
-(4, 'asd', 'q'),
-(5, '你大爷', '我孙子');
+(14, '你好吗', '你好');
 
 -- --------------------------------------------------------
 
@@ -116,19 +119,19 @@ INSERT INTO `Knowledge` (`KNOWID`, `Question`, `Answer`) VALUES
 CREATE TABLE IF NOT EXISTS `Session` (
   `session_id` varchar(40) NOT NULL DEFAULT '0',
   `ip_address` varchar(16) NOT NULL DEFAULT '0',
-  `user_agent` varchar(50) NOT NULL,
+  `user_agent` varchar(500) NOT NULL,
   `last_activity` int(10) unsigned NOT NULL DEFAULT '0',
   `user_data` text NOT NULL,
   PRIMARY KEY (`session_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- 转存表中的数据 `Session`
 --
 
 INSERT INTO `Session` (`session_id`, `ip_address`, `user_agent`, `last_activity`, `user_data`) VALUES
-('62497018ec1a7fb1e77d68c792822506', '127.0.0.1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36', 1404495465, 'a:4:{s:9:"user_data";s:0:"";s:3:"UID";s:1:"3";s:8:"UserName";s:4:"test";s:8:"LoggedIn";b:1;}'),
-('6b345db961fee60c5161df61610d6a1d', '127.0.0.1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36', 1404492636, 'a:4:{s:9:"user_data";s:0:"";s:3:"UID";s:1:"3";s:8:"UserName";s:4:"test";s:8:"LoggedIn";b:1;}');
+('6a8407583ca876427125514c033a9123', '127.0.0.1', 'Mozilla/5.0 (X11; Linux i686) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/36.0.1985.125 Safari/537.36', 1408155200, 'a:4:{s:9:"user_data";s:0:"";s:3:"UID";s:1:"3";s:8:"UserName";s:4:"test";s:8:"LoggedIn";b:1;}'),
+('1ff5060e4545eb2657bbc356b177e3ce', '222.240.46.182', 'Mozilla/5.0 (X11; Linux i686) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/36.0.1985.125 Safari/537.36', 1408158557, 'a:4:{s:9:"user_data";s:0:"";s:3:"UID";s:1:"3";s:8:"UserName";s:4:"test";s:8:"LoggedIn";b:1;}');
 
 -- --------------------------------------------------------
 
@@ -148,7 +151,7 @@ CREATE TABLE IF NOT EXISTS `Stat` (
 --
 
 INSERT INTO `Stat` (`STATID`, `VisitFakeID`, `VisitTime`) VALUES
-(1, 'asdasd', '2014-06-24 03:19:27');
+(1, 'asdasd', '2014-06-24 11:19:27');
 
 -- --------------------------------------------------------
 
@@ -161,16 +164,14 @@ CREATE TABLE IF NOT EXISTS `Tag` (
   `TagName` varchar(10) NOT NULL,
   PRIMARY KEY (`TAGID`),
   UNIQUE KEY `TagName` (`TagName`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=13 ;
 
 --
 -- 转存表中的数据 `Tag`
 --
 
 INSERT INTO `Tag` (`TAGID`, `TagName`) VALUES
-(1, 'xx'),
-(2, 'vhgsd'),
-(3, 'gg');
+(12, 'test');
 
 -- --------------------------------------------------------
 
@@ -183,19 +184,14 @@ CREATE TABLE IF NOT EXISTS `TagAssocKnow` (
   `TAGID` int(10) unsigned NOT NULL,
   `KNOWID` int(10) unsigned NOT NULL,
   PRIMARY KEY (`TAGASSOCID`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=20 ;
 
 --
 -- 转存表中的数据 `TagAssocKnow`
 --
 
 INSERT INTO `TagAssocKnow` (`TAGASSOCID`, `TAGID`, `KNOWID`) VALUES
-(1, 1, 1),
-(2, 2, 2),
-(3, 1, 1),
-(4, 1, 4),
-(5, 1, 5),
-(6, 3, 5);
+(19, 12, 14);
 
 -- --------------------------------------------------------
 
@@ -212,15 +208,12 @@ CREATE TABLE IF NOT EXISTS `User` (
   `ContactInfo` varchar(20) NOT NULL,
   PRIMARY KEY (`UID`),
   UNIQUE KEY `UserName` (`UserName`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
 
 --
 -- 转存表中的数据 `User`
 --
 
 INSERT INTO `User` (`UID`, `UserName`, `PassWord`, `RealName`, `DepartMent`, `ContactInfo`) VALUES
-(3, 'test', 'a94a8fe5ccb19ba61c4c0873d391e987982fbbd3', 'test', 'test', 'test');
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+(3, 'test', 'a94a8fe5ccb19ba61c4c0873d391e987982fbbd3', 'test', 'test', 'test'),
+(5, 'admin', 'd033e22ae348aeb5660fc2140aec35850c4da997', '管理员', '', '');

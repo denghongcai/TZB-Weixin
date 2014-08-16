@@ -23,7 +23,7 @@
                 <input name="Author" type="text" placeholder="请输入作者" value="<?=$data['Author']?>">
                 <button class="btn-clear" tabindex="-1" type="button"></button>
             </div>
-            <?php if($data['Title'] != ""):?>
+            
             <div class="input-control select" data-role="input-control">
                 <select name="Category">
                     <?php foreach($category as $row):?>
@@ -31,7 +31,7 @@
                     <?php endforeach?>
                 </select>
             </div>
-            <?php endif?>
+            
             <textarea name="Content" id="Content" style="display: none"></textarea>
             <input type="submit" value="提交">
             <div style="width:620px;height: 300px;margin-top:10px;">
