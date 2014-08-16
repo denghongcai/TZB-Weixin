@@ -29,14 +29,16 @@ class Map extends TZB_Base {
             $this->data['to'] = $this->getName($this->data['tocoord']);
             $this->returnData['type'] = 'news';
             $this->returnData['data'] = $this->getNews();
+            $this->returnData['state']['keyword'] = false;
+            $this->returnData['state']['data'] = NULL;
         } else {
             $this->data['fromcoord'] = $this->location['x'] . ',' . $this->location['y'];
             $this->data['from'] = $this->getName($this->data['fromcoord']);
             $this->returnData['type'] = 'text';
             $this->returnData['data'] = '请发送【目的地】的位置信息';
+            $this->returnData['state']['keyword'] = 'Map';
+            $this->returnData['state']['data'] = $this->data;
         }
-        $this->returnData['state']['keyword'] = 'Map';
-        $this->returnData['state']['data'] = $this->data;
         return $this->returnData;
     }
     
