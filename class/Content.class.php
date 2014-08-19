@@ -61,13 +61,16 @@ class Content extends TZB_Base {
             foreach($contentid as $id) {
                 $content = $this->db->Content('CONTENTID', $id['CONTENTID'])->limit(1)->fetch();
                 $item['Title'] = $i . ". " . $content['Title'];
-                $item['Description'] = $content['Content'];
+                //$item['Description'] = $content['Content'];
                 $item['PicUrl'] = '';
                 $item['Url'] = SITE_ROOT . '/content.php?id=' . urlencode($id['CONTENTID']);
                 array_push($items, $item);
                 $i++;
             }
-            $foot['Title'] = '第' . $data['page'] .  '页，共' . $pages . '页，回复“下一页”继续浏览';
+            $foot['Title'] = '第' . $data['page'] .  '页，共' . $pages . '页';
+            if($data['page'] < $pages) {
+                $foot['Title'] .= "，回复“下一页”继续浏览";
+            }
             array_push($items, $foot);
             $this->returnData['type'] = 'news';
             $this->returnData['data'] = $items;

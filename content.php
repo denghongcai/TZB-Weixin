@@ -50,7 +50,7 @@ if(isset($_GET['id']) && is_numeric($_GET['id'])) {
                     <p class="activity-info">
                         <span id="post-date" class="activity-meta no-extra"><?=$content['AddTime']?></span>
                         <a href="#" id="post-user" class="activity-meta">
-                            <span class="text-ellipsis">创青春-<?=$content['Author']?></span><i class="icon_link_arrow"></i>
+                            <span class="text-ellipsis">创青春 <?=$content['Author']?></span><i class="icon_link_arrow"></i>
                         </a>
                     </p>
                 </div>
