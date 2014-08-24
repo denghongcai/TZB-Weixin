@@ -89,21 +89,36 @@ class Uploader
             $this->stateInfo = $this->getStateInfo( "TYPE" );
             return;
         }
-
+	
+		/*文件路径
         $folder = $this->getFolder();
 
         if ( $folder === false ) {
             $this->stateInfo = $this->getStateInfo( "DIR_ERROR" );
             return;
-        }
+        }*/
 
-        $this->fullName = $folder . '/' . $this->getName();
-
+        //$this->fullName = $folder . '/' . $this->getName();
+		
+		$this->getName();
         if ( $this->stateInfo == $this->stateMap[ 0 ] ) {
+            /*上传文件
             if ( !move_uploaded_file( $file[ "tmp_name" ] , $this->fullName ) ) {
                 $this->stateInfo = $this->getStateInfo( "MOVE" );
             }
-        }
+            */
+            //sae storage
+			$storage = new SaeStorage();
+			$domain =  $this->config['domain'];
+			$destFileName = $this->fileName;
+			$srcFileName = $file['tmp_name'];
+			$result = $storage->upload($domain,$destFileName, $srcFileName);
+			if(!empty($result)) {
+				$this->fullName = $result;
+			} else {
+				$this->stateInfo = $this->getStateInfo( "MOVE" );
+			}
+		}
     }
 
     /**
@@ -157,7 +172,8 @@ class Uploader
      */
     private function getName()
     {
-        return $this->fileName = time() . rand( 1 , 10000 ) . $this->getFileExt();
+        //return $this->fileName = time() . rand( 1 , 10000 ) . $this->getFileExt();
+        return $this->fileName = md5(uniqid(rand(), true)) . $this->getFileExt();
     }
 
     /**
