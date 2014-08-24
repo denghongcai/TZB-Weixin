@@ -71,10 +71,14 @@ class WechatRun {
                 /*$this->returnData['type'] = 'text';
                 $this->returnData['data'] = 'hello world';
                 $this->user['state']['keyword'] = 'text';*/
-                //$menu = new Menu($content);
-                //$this->returnData = $menu->getReturn();
-                $know = new Know($content);
-                $this->returnData = $know->getReturn();
+                $menu = new Menu($content);
+                $menudata = $menu->getReturn();
+                if(!empty($menudata)) {
+					$this->returnData = $menudata;
+				} else {
+					$know = new Know($content);
+					$this->returnData = $know->getReturn();
+				}
                 break;
         }
         exit;

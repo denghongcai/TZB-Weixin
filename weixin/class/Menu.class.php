@@ -46,6 +46,7 @@ class Menu extends TZB_Base {
                 );
                 break;
             default :
+				return false;
                 //$this->returnData['type'] = 'text';
                // $this->returnData['data'] = $this->keyword;
                 break;
