@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="zh-cmn-Hans">
 <head>
+	 <meta charset="utf-8">
+    <title>创青春微信管理平台</title>
     <link rel="stylesheet" href="<?=base_url('css/metro-bootstrap.min.css')?>">
     <link rel="stylesheet" href="<?=base_url('css/metro-bootstrap-responsive.min.css')?>">
     <link rel="stylesheet" href="<?=base_url('css/iconFont.min.css')?>">
@@ -11,8 +13,6 @@
     <script src="<?=base_url('js/jquery.min.js')?>"></script>
     <script src="<?=base_url('js/jquery.widget.min.js')?>"></script>
     <script src="<?=base_url('js/jquery.dataTables.js')?>"></script>
-    <script src="<?=base_url('js/dataTables.tableTools.js')?>"></script>
-    <script src="<?=base_url('js/dataTables.editor.min.js')?>"></script>
     <script src="<?=base_url('js/tagmanager.js')?>"></script>
     <script src="<?=base_url('js/typeahead.min.js')?>"></script>
     <script src="<?=base_url('js/metro.min.js')?>"></script>

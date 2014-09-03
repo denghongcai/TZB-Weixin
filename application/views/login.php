@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="zh-cmn-Hans">
 <head>
+	<meta charset="utf-8">
+    <title>创青春微信管理平台</title>
     <link rel="stylesheet" href="<?=base_url('css/metro-bootstrap.min.css')?>">
     <link rel="stylesheet" href="<?=base_url('css/metro-bootstrap-responsive.min.css')?>">
     <link rel="stylesheet" href="<?=base_url('css/iconFont.min.css')?>">

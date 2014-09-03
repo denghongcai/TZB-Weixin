@@ -44,13 +44,13 @@
     }
 </style>
 <div class="span8">
-    <form method="post" action="<?=base_url('knowledge/UpdateKnowledge?action=Add')?>">
+    <form method="post" action="<?=$action?>">
         <?php if($error !== FALSE):?>
             <div class="notice marker-on-bottom">
                 <?php if($error === 1):?>
-                    新条目添加失败
+                    操作失败
                 <?php else:?>
-                    新条目添加成功
+                    操作成功
                 <?php endif?>
             </div>
         <?php endif?>
@@ -58,12 +58,12 @@
             <legend>增加条目</legend>
             <label>问题</label>
             <div class="input-control text" data-role="input-control">
-                <input name="Question" type="text" placeholder="请输入问题">
+                <input name="Question" type="text" placeholder="请输入问题" value="<?=$data['Question']?>">
                 <button class="btn-clear" tabindex="-1" type="button"></button>
             </div>
             <label>答案</label>
             <div class="input-control text" data-role="input-control">
-                <input name="Answer" type="text" placeholder="请输入答案" autofocus="">
+                <input name="Answer" type="text" placeholder="请输入答案" autofocus="" value="<?=$data['Answer']?>">
                 <button class="btn-clear" tabindex="-1" type="button"></button>
             </div>
             <label>Tag</label>
@@ -71,7 +71,7 @@
 
             </div>
             <div class="input-control text" data-role="input-control">
-                <input class="tm-input" type="text" placeholder="请输入Tag" autofocus="" autocomplete="false">
+                <input class="tm-input" type="text" placeholder="请输入Tag" autofocus="" autocomplete="false" value="<?=$data['Tag']?>">
                 <button class="btn-clear" tabindex="-1" type="button"></button>
             </div>
             <input type="submit" value="提交">
