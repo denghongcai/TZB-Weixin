@@ -16,6 +16,7 @@ class Content_model extends CI_Model {
     function GetContentByCategory($categoryid = NULL)
     {
         $data = array();
+        //$this->db->order_by('AddTime', 'desc');
         $query = $this->db->get_where('CategoryAssocContent',
             array(
                 'CATEGORYID'=>$categoryid

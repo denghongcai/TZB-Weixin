@@ -29,6 +29,7 @@ class Content extends MY_Controller {
                 $row['Remove'] = '<a href="'.base_url('content/UpdateContent?action=remove&id='.$cid).'">删除</a>';
                 $row['DT_RowId'] = 'row_'.$cid;
             }
+            $row['Content'] = mb_substr(strip_tags($row['Content']), 0, 80, 'UTF-8') . '…';
         }
         echo json_encode(
             array(

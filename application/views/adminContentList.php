@@ -13,6 +13,7 @@
             <th class="text-left">标题</th>
             <th class="text-left">作者</th>
             <th class="text-left">内容</th>
+            <th class="text-left">时间</th>
             <th class="text-left">编辑</th>
             <th class="text-left">删除</th>
         </tr>
@@ -24,6 +25,7 @@
             <th class="text-left">标题</th>
             <th class="text-left">作者</th>
             <th class="text-left">内容</th>
+            <th class="text-left">时间</th>
             <th class="text-left">编辑</th>
             <th class="text-left">删除</th>
         </tr>
@@ -50,6 +52,7 @@
                         {'data': 'Title'},
                         {'data': 'Author'},
                         {'data': 'Content'},
+                        {'data': 'AddTime'},
                         {'data': 'Edit'},
                         {'data': 'Remove'}
                     ],
