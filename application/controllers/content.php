@@ -30,6 +30,7 @@ class Content extends MY_Controller {
                 $row['DT_RowId'] = 'row_'.$cid;
             }
             $row['Content'] = mb_substr(strip_tags($row['Content']), 0, 80, 'UTF-8') . '…';
+            $row['Title'] = "<a href='http://tzb-weixin.dhc.house/content.php?id=$row[CONTENTID]'>$row[Title]</a>"
         }
         echo json_encode(
             array(
