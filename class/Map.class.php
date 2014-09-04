@@ -29,6 +29,8 @@ class Map extends TZB_Base {
             $this->data['to'] = $this->getName($this->data['tocoord']);
             $this->returnData['type'] = 'news';
             $this->returnData['data'] = $this->getNews();
+            $item = array('Title' => '继续发送其他想去的地方可以查看更多路线哟～');
+            array_push($this->returnData['data'], $item);
             $this->returnData['state']['keyword'] = false;
             $this->returnData['state']['data'] = NULL;
         } else {

@@ -87,6 +87,10 @@ class WechatRun {
         if($this->user['state']['keyword'] == 'Map') {
             $map = new Map($this->user['state']['data'], $location);
             $this->returnData = $map->getReturn();
+            if(!$this->returnData['state']['keyword']) {
+                $this->returnData['state']['keyword'] = 'Map';
+                $this->returnData['state']['data'] = $this->user['state']['data'];
+            }
         } else {
             $this->toDianping($location);
         }
