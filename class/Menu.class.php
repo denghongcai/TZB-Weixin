@@ -9,7 +9,7 @@ class Menu extends TZB_Base {
         $this->returnData['state']['keyword'] = $key;
     }
     
-    public function getReturn() {
+    public function getReturn($page = 1) {
         switch ($this->keyword) {
             case 'TZB_GUIDE':
             case 'TZB_MEETING':
@@ -19,7 +19,7 @@ class Menu extends TZB_Base {
             case 'TZB_TEAM':
             case 'TZB_PIC':
             case 'TZB_CONNECT':
-                $content = new Content($this->keyword);
+                $content = new Content($this->keyword, $page);
                 $this->returnData['type'] = 'text';
                 $this->returnData = $content->getReturn();
                 break;
@@ -33,10 +33,19 @@ class Menu extends TZB_Base {
                 $this->returnData['state']['keyword'] = 'Dianping';
                 break;
             case 'TZB_MAP':
-                $this->returnData['type'] = 'text';
-                $this->returnData['data'] = '请发送【出发地】的位置信息';
+                $content = new Content($this->keyword, $page);
+                $this->returnData = $content->getReturn();
                 $this->returnData['state']['keyword'] = 'Map';
-                $this->returnData['state']['data'] = array(
+                if($this->returnData['type'] == 'news') {
+                    $item = array(
+                        'Title' => '如须使用地图导航，请发送【出发地】的位置信息（如何发送位置信息？点击查看帮助~）',
+                        'Url' => '',
+                    );
+                    array_push($this->returnData['data'], $item);
+                } else if($this->returnData['type'] == 'text'){
+                    $this->returnData['data'] .= "\n如须使用地图导航，请发送【出发地】的位置信息";
+                }
+                $location = array(
                     'fromcoord' => '',
                     'from' => '',
                     'to' => '',
@@ -44,6 +53,8 @@ class Menu extends TZB_Base {
                     'policy' => '1',
                     'referer' => '',
                 );
+                $this->returnData['state']['data'] = array_merge($this->returnData['state']['data'], $location);
+                
                 break;
             default :
                 //$this->returnData['type'] = 'text';

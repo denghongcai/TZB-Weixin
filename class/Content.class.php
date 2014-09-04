@@ -3,7 +3,7 @@
 if (!defined('BASEPATH')) exit('No direct script access allowed');
 
 class Content extends TZB_Base {
-    const PAGECOUNT = 5;
+    const PAGECOUNT = 7;
     const ERROR_PAGE = 'ERROR_PAGE';
     const EEEOR_KEYWORD = 'EEEOR_KEYWORD';
     
@@ -57,7 +57,7 @@ class Content extends TZB_Base {
             array_push($items, $item);
             
             $contentid = $table->limit(self::PAGECOUNT, $offset);
-            $i = 1;
+            $i = 1 + $offset;
             foreach($contentid as $id) {
                 $content = $this->db->Content('CONTENTID', $id['CONTENTID'])->limit(1)->fetch();
                 $item['Title'] = $i . ". " . $content['Title'];

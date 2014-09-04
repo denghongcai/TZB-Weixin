@@ -20,7 +20,7 @@ class WechatRun {
     ); 
     private $returnData = array(
         'type' => false,
-        'data' => array(),
+        'data' => null,
         'error' => 0,
         'state' => array(
             'keyword' => '',
@@ -71,10 +71,12 @@ class WechatRun {
                 /*$this->returnData['type'] = 'text';
                 $this->returnData['data'] = 'hello world';
                 $this->user['state']['keyword'] = 'text';*/
-                //$menu = new Menu($content);
-                //$this->returnData = $menu->getReturn();
-                $know = new Know($content);
-                $this->returnData = $know->getReturn();
+                $menu = new Menu($content);
+                $this->returnData = $menu->getReturn();
+                if(empty($this->returnData['data'])) {
+                    $know = new Know($content);
+                    $this->returnData = $know->getReturn();
+                }
                 break;
         }
         exit;
@@ -114,9 +116,6 @@ class WechatRun {
     }
 
     private function toNextPage() {
-        if (empty($this->user['state']['keyword'])) {
-            return false;
-        }
         switch ($this->user['state']['keyword']) {
             case 'Dianping': 
                 $data = $this->user['state']['data'];
@@ -126,10 +125,15 @@ class WechatRun {
                 );
                 $this->toDianping($location, $data['page'] + 1);
                 break;
+            case 'Map':
             case 'Content':
                 $data = $this->user['state']['data'];
-                $content = new Content($data['keyword'], $data['page'] + 1);
-                $this->returnData = $content->getReturn();
+                $menu = new Menu($data['keyword']);
+                $this->returnData = $menu->getReturn($data['page'] + 1);
+                break;
+            default:
+                $this->returnData['type'] = 'text';
+                $this->returnData['data'] = "请通过菜单选择想要的功能";
                 break;
         }
     }

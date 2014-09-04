@@ -7,15 +7,15 @@
 * @license http://www.gnu.org/licenses/gpl-2.0.html GNU General Public License, version 2 (one or other)
 */
 
-/*if (!interface_exists('JsonSerializable')) {
+if (!interface_exists('JsonSerializable')) {
 	interface JsonSerializable {
 		function jsonSerialize();
 	}
-}*/
-//PHP5.4
-interface JsonSerializable {
-		function jsonSerialize();
 }
+//PHP5.4
+//interface JsonSerializable {
+//		function jsonSerialize();
+//}
 include_once dirname(__FILE__) . "/NotORM/Structure.php";
 include_once dirname(__FILE__) . "/NotORM/Cache.php";
 include_once dirname(__FILE__) . "/NotORM/Literal.php";
