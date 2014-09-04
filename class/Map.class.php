@@ -5,8 +5,13 @@ class Map extends TZB_Base {
     const APIURL = 'http://apis.map.qq.com/uri/v1/routeplan?';
     const GEOCODERAPI = 'http://apis.map.qq.com/ws/geocoder/v1/?';
     const APIKEY = 'M3BBZ-XNDRJ-6LLF6-KG5JG-GY3A5-2UFNP';
+    
+    const BD_APIURL = 'http://api.map.baidu.com/direction?';
+    
+    
     const PIC_BUS = 'http://tzb-weixin.dhc.house/pic/bus.png';
     const PIC_CAR = 'http://tzb-weixin.dhc.house/pic/car.png';
+    const PIC_WALK = 'http://tzb-weixin.dhc.house/pic/walking.png';
     private $data = array(
            'fromcoord' => '',
            'from' => '',
@@ -49,7 +54,18 @@ class Map extends TZB_Base {
         return self::APIURL . http_build_query($this->data);
     }
     
-    private function getNews() {
+    private function getUrlBD($type) {
+        $data['origin'] = 'latlng:' . $this->data['fromcoord'] . "|name:" . $this->data['from'];
+        $data['destination'] = 'latlng:' . $this->data['tocoord'] . "|name:" . $this->data['to'];
+        $data['output'] = 'html';
+        $data['coord_type'] = 'gcj02';
+        $data['region'] = '武汉';
+        $data['mode'] = $type;
+        $data['src'] = 'tzbweixin';
+        return self::BD_APIURL . http_build_query($data);
+    }
+
+        private function getNews() {
         $items = array();
             array_push($items, array(
                 'Title' => $this->data['from'] . '->' . $this->data['to'],
@@ -57,12 +73,17 @@ class Map extends TZB_Base {
             array_push($items, array(
                 'Title' => '公交导航',
                 'PicUrl'    =>  self::PIC_BUS,
-                'Url' => $this->getUrl('bus'),
+                'Url' => $this->getUrlBD('transit'),
             ));
             array_push($items, array(
                 'Title' => '驾车导航',
                 'PicUrl'    =>  self::PIC_CAR,
-                'Url' => $this->getUrl('drive'),
+                'Url' => $this->getUrlBD('driving'),
+            ));
+            array_push($items, array(
+                'Title' => '步行导航',
+                'PicUrl'    =>  self::PIC_WALK,
+                'Url' => $this->getUrlBD('walking'),
             ));
             return $items;
     }

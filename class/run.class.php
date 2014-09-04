@@ -6,7 +6,7 @@ if (!defined('BASEPATH')) {
 
 class WechatRun {
 
-    const TIME_LENGTH = 600;
+    const TIME_LENGTH = 3600;
 
     private $weObj;
     private $config;
