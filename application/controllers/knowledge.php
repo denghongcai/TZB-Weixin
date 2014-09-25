@@ -55,7 +55,15 @@ class KNOWLEDGE extends MY_Controller {
             case 'Add':
                 $data = $this->input->post(NULL, TRUE);
                 array_map('trim', $data);
-                $data['Tag'] = explode(',',$data['Tag']);
+                //合并tag
+				$tag_js = explode(',',$data['Tag']);
+				$tag_input = explode(',',$data['Tags']);
+				$tag = array_merge($tag_js, $tag_input);
+				$tag = array_filter($tag);
+				$tag = array_map('trim', $tag);
+				$data['Tag'] = array_unique($tag);
+				unset($data['Tags']);
+				
                 $this->knowledge_model->ReplaceKnowledge($data);
                 $this->session->set_flashdata(
                     array(
@@ -68,8 +76,16 @@ class KNOWLEDGE extends MY_Controller {
                 $kid = $this->input->get('id', TRUE);
                 $data = $this->input->post(NULL, TRUE);
                 array_map('trim', $data);
-                $data['KNOWID'] = $kid;
-                $data['Tag'] = explode(',',$data['Tag']);
+                $data['KNOWID'] = $kid;var_dump($data);
+				//合并tag
+				$tag_js = explode(',',$data['Tag']);
+				$tag_input = explode(',',$data['Tags']);
+				$tag = array_merge($tag_js, $tag_input);
+				$tag = array_filter($tag);
+				$tag = array_map('trim', $tag);
+				$data['Tag'] = array_unique($tag);
+				unset($data['Tags']);
+				
                 $this->knowledge_model->ReplaceKnowledge($data);
                 $this->session->set_flashdata(
                     array(
