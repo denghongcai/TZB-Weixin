@@ -11,7 +11,8 @@ class Comment_admin extends MY_Controller {
     }
 
     public function CommentList() {
-        $this->load->view('includes/header');
+        $header['act'] = 'comment';
+        $this->load->view('includes/header', $header);
         $this->load->view('adminCommentList');
         $this->load->view('includes/footer');
     }

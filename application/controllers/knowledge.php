@@ -10,7 +10,7 @@ class KNOWLEDGE extends MY_Controller {
 
     public function KnowledgeList()
     {
-        $this->load->view('includes/header');
+        $this->load->view('includes/header', array('act'=>'knowledge'));
 		$this->load->view('adminKnowledgeList');
         $this->load->view('includes/footer');
     }
@@ -100,7 +100,7 @@ class KNOWLEDGE extends MY_Controller {
                 redirect('knowledge/KnowledgeList');
                 break;
             default:
-                $this->load->view('includes/header');
+                $this->load->view('includes/header', array('act'=>'knowledge'));
                 $data = array();
                 $data['error'] = $this->session->flashdata('error');
                 if($kid != null){

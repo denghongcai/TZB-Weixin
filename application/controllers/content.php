@@ -13,7 +13,7 @@ class Content extends MY_Controller {
         $data = array();
         $category = $this->content_model->GetCategory();
         $data['category'] = $category;
-        $this->load->view('includes/header');
+        $this->load->view('includes/header', array('act'=>'content'));
         $this->load->view('adminContentList', $data);
         $this->load->view('includes/footer');
     }
@@ -80,7 +80,7 @@ class Content extends MY_Controller {
                 redirect(base_url('content/ContentList'));
                 break;
             default:
-                $this->load->view('includes/header');
+                $this->load->view('includes/header', array('act'=>'content'));
                 $data = array();
                 $data['error'] = $this->session->flashdata('error');
                 $data['category'] = $this->content_model->GetCategory();

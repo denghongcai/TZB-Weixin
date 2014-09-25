@@ -14,9 +14,9 @@
         </tbody>
         <tfoot>
             <tr>
-                <th class="text-left">时间</th>
                 <th class="text-left">作者</th>
                 <th class="text-left">内容</th>
+                <th class="text-left">时间</th>
                 <th class="text-left">展示</th>
                 <th class="text-left">删除</th>
             </tr>
@@ -30,9 +30,9 @@
                 'serverSide': false,
                 'ajax': "<?= base_url('comment_admin/CommentListAjax') ?>",
                 'columns': [
-                    {'data': 'Time'},
                     {'data': 'Name'},
                     {'data': 'Content'},
+                    {'data': 'Time'},
                     {'data': 'Edit'},
                     {'data': 'Remove'}
                 ],

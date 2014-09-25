@@ -8,7 +8,7 @@ class USER extends MY_Controller {
         if($data === FALSE){
             $data = array();
             $data['error'] = $this->session->flashdata('error');
-            $this->load->view('includes/header');
+            $this->load->view('includes/header', array('act'=>'user'));
             $this->load->view('adminModifyPassword', $data);
             $this->load->view('includes/footer');
         }
@@ -50,7 +50,7 @@ class USER extends MY_Controller {
                 }
                 break;
             default:
-                $this->load->view('includes/header');
+                $this->load->view('includes/header', array('act'=>'user'));
                 $this->load->view('adminManageUser');
                 $this->load->view('includes/footer');
         }
