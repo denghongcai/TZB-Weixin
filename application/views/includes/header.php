@@ -21,7 +21,7 @@
     <header class="bg-dark">
         <div class="navigation-bar fixed-top shadow">
             <div class="navigation-bar-content container">
-                <a href="/" class="element"><span class="icon-grid-view"></span> 华中科技大学挑战杯微信平台管理后台 <sup>0.1</sup></a>
+                <a href="/" class="element"><span class="icon-grid-view"></span> 创青春微信平台管理后台 <sup>0.1</sup></a>
             </div>
         </div>
     </header>
@@ -50,6 +50,13 @@
                                 <ul class="dropdown-menu" data-role="dropdown">
                                     <li><a href="<?=base_url('knowledge/KnowledgeList')?>"><i class="icon-book"></i>浏览知识库</a></li>
                                     <li><a href="<?=base_url('knowledge/UpdateKnowledge')?>"><i class="icon-plus-2"></i>增加知识库条目</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a class="dropdown-toggle title" href="#">留言管理</a>
+                                <ul class="dropdown-menu" data-role="dropdown">
+                                    <li><a href="<?=base_url('comment_admin/CommentList')?>"><i class="icon-book"></i>查看留言</a></li>
+                                    
                                 </ul>
                             </li>
                             <li>
