@@ -60,13 +60,16 @@ class Content_model extends CI_Model {
         $this->db->replace('Content', $cdata);
         if(isset($data['Category'])){
             $contentid =  $this->db->insert_id();
-            $cadata = $data['Category'];
-            $this->db->where( 'CONTENTID', $contentid);
-            $query = $this->db->update('CategoryAssocContent',
-                array(
-                    'CATEGORYID'=>$cadata
-                )
-            );
+            $cadata['CATEGORYID'] = $data['Category'];
+            $query = $this->db->get_where('CategoryAssocContent', array('CONTENTID'=>$contentid));
+            if($query->num_rows() > 0) {
+                $this->db->where('CONTENTID', $contentid);
+                $this->db->update('CategoryAssocContent', $cadata);
+            } else {
+                $cadata['CONTENTID'] = $contentid;
+                $this->db->insert('CategoryAssocContent', $cadata);
+            }
+            
         }
         return TRUE;
     }
