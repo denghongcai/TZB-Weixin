@@ -27,7 +27,7 @@
             <div class="input-control select" data-role="input-control">
                 <select name="Category">
                     <?php foreach($category as $row):?>
-                        <option value="<?=$row['CATEGORYID']?>"><?=$row['CategoryName']?></option>
+                    <option value="<?=$row['CATEGORYID']?>" <?=$data['CATEGORYID']==$row['CATEGORYID'] ? 'selected="selected"' : ''?>><?=$row['CategoryName']?></option>
                     <?php endforeach?>
                 </select>
             </div>

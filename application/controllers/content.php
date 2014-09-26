@@ -63,9 +63,9 @@ class Content extends MY_Controller {
                 array_map("trim", $data);
                 $data['CONTENTID'] = $this->input->get('id', TRUE);
                 $data['Content'] = base64_decode($data['Content']);
-                unset($data['Category']);
+                //unset($data['Category']);
                 $this->content_model->ReplaceContent($data);
-                $data = $this->content_model->GetContentByID($data['CONTENTID']);
+                //$data = $this->content_model->GetContentByID($data['CONTENTID']);
                 $this->session->set_flashdata(
                     array(
                         'error'=>0

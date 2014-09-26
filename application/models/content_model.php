@@ -36,9 +36,13 @@ class Content_model extends CI_Model {
 
     function GetContentByID($contentid = NULL)
     {
+        $this->db->select('Content.*');
+        $this->db->select('CategoryAssocContent.CATEGORYID');
+        $this->db->limit(1);
+        $this->db->join('CategoryAssocContent', 'CategoryAssocContent.CONTENTID=Content.CONTENTID');
         $query = $this->db->get_where('Content',
             array(
-                'CONTENTID'=>$contentid
+                'Content.CONTENTID'=>$contentid
             )
         );
         return $query->row_array();
@@ -57,10 +61,10 @@ class Content_model extends CI_Model {
         if(isset($data['Category'])){
             $contentid =  $this->db->insert_id();
             $cadata = $data['Category'];
-            $query = $this->db->insert('CategoryAssocContent',
+            $this->db->where( 'CONTENTID', $contentid);
+            $query = $this->db->update('CategoryAssocContent',
                 array(
-                    'CATEGORYID'=>$cadata,
-                    'CONTENTID'=>$contentid
+                    'CATEGORYID'=>$cadata
                 )
             );
         }
