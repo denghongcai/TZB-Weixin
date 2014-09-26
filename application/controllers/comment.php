@@ -8,7 +8,7 @@ class Comment extends CI_Controller {
     
     public function index($page = 1) {
         $data['comments'] = $this->comment_model->getComment($page);
-        $data['total_counts'] = $this->comment_model->getTotalCounts();
+        $data['total_counts'] = $this->comment_model->getTotalCounts(FALSE);
         $data['curr_page'] = $page;
         $data['limit'] = 5;
         $data['total_pages'] = $this->comment_model->getTotalPages();
@@ -29,6 +29,7 @@ class Comment extends CI_Controller {
         }
         if($data['Content']) {
             $data['Content'] = htmlspecialchars($data['Content']);
+            $data['Content'] = nl2br($data['Content']);
         } else {
             $data['Content'] = "";
         }

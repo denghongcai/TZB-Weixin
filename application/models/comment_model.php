@@ -2,7 +2,7 @@
 
 class Comment_Model extends CI_Model {
     
-    const PAGECOUNT = 9;
+    const PAGECOUNT = 10;
     
     public function __construct() {
         parent::__construct();
@@ -31,8 +31,12 @@ class Comment_Model extends CI_Model {
         return ceil($query->num_rows() / self::PAGECOUNT);
     }
     
-    public function getTotalCounts() {
-        $query = $this->db->get_where('Comment', array('is_del' => 0));
+    public function getTotalCounts($no_del = true) {
+        //不包含被删除的项
+        if($no_del) {
+            $this->db->where('is_del', 0);
+        }
+        $query = $this->db->get('Comment');
         return $query->num_rows();
     }
     
