@@ -41,7 +41,7 @@ if(isset($_GET['id']) && is_numeric($_GET['id'])) {
     </head> 
 
     <body id="activity-detail">
-        <img width="12px" style="position: absolute;top:-1000px;" src="http://res.wx.qq.com/mmbizwap/zh_CN/htmledition/images/ico_loading1984f1.gif">
+
         <div class="wrp_page">
 
             <div class="page-bizinfo">
@@ -62,7 +62,13 @@ if(isset($_GET['id']) && is_numeric($_GET['id'])) {
 
                     <div class="text" id="js_content">
                         <?=$content['Content']?>
-                        <p><span style="max-width: 100%; font-family: Times; "><br></span></p><p style="margin-top: 0px; margin-bottom: 0px; padding: 0px; max-width: 100%; min-height: 1.5em; white-space: normal; line-height: 2em; color: rgb(62, 62, 62); font-family: 宋体; -webkit-text-size-adjust: none; background-color: rgb(255, 255, 255); "><span style="font-family: sans-serif;"></span><img data-src="http://mmbiz.qpic.cn/mmbiz/qLVg5iafF2DXSSCTd8hl2pCInD6QqYpamYjMeU9nfgiaLoh88kZGxPWKJ4EY7bh5l3cze01hkE9xybM2dWfrw2eg/0" style="font-family: sans-serif; height: auto !important; visibility: visible !important;" src="http://mmbiz.qpic.cn/mmbiz/qLVg5iafF2DXSSCTd8hl2pCInD6QqYpamYjMeU9nfgiaLoh88kZGxPWKJ4EY7bh5l3cze01hkE9xybM2dWfrw2eg/0"></p>
+                        <p>
+                            <span style="max-width: 100%; font-family: Times; "><br></span>
+                        </p>
+                        <p style="margin-top: 0px; margin-bottom: 0px; padding: 0px; max-width: 100%; min-height: 1.5em; white-space: normal; line-height: 2em; color: rgb(62, 62, 62); font-family: 宋体; -webkit-text-size-adjust: none; background-color: rgb(255, 255, 255); ">
+                            <span style="font-family: sans-serif;"></span>
+                            <img data-src="http://mmbiz.qpic.cn/mmbiz/qLVg5iafF2DXSSCTd8hl2pCInD6QqYpamYjMeU9nfgiaLoh88kZGxPWKJ4EY7bh5l3cze01hkE9xybM2dWfrw2eg/0" style="font-family: sans-serif; height: auto !important; visibility: visible !important;" src="http://mmbiz.qpic.cn/mmbiz/qLVg5iafF2DXSSCTd8hl2pCInD6QqYpamYjMeU9nfgiaLoh88kZGxPWKJ4EY7bh5l3cze01hkE9xybM2dWfrw2eg/0">
+                        </p>
                     </div>
 
                 </div>

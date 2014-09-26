@@ -28,6 +28,7 @@ class Menu extends TZB_Base {
                 $this->returnData = $weather->getReturn();
                 break;
             case 'TZB_AMUSE':
+                break;
                 $this->returnData['type'] = 'text';
                 $this->returnData['data'] = '发送当前位置信息即可查看周边商铺';
                 $this->returnData['state']['keyword'] = 'Dianping';

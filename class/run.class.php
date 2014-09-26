@@ -92,7 +92,7 @@ class WechatRun {
                 $this->returnData['state']['data'] = $this->user['state']['data'];
             }
         } else {
-            $this->toDianping($location);
+            //$this->toDianping($location);
         }
     }
 
