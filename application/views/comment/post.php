@@ -9,7 +9,7 @@
         <style>
             body
             {
-                background-color:#df2b2b;
+                background-color:#29c8ff;
             }
 
             textarea{
@@ -31,18 +31,18 @@
                 </div>
                 <div class="form-group form-horizontal row">
                     <div class="col-xs-4 text-right" style="color:white"><label for="comment">我的看法</label></div>
-                    <div class="col-xs-8 text-left"><textarea rows="5" name="comment" id="comment" placeholder="请输入您关于社会主义核心价值观的看法"></textarea></div>
+                    <div class="col-xs-8 text-left"><textarea rows="5" name="comment" id="comment" placeholder="请输入您关于创青春的看法"></textarea></div>
                 </div>
                 <div class="col-xs-6 text-center">
-                    <button type="reset" class="btn btn-info">重置</button>
+                    <button type="reset" class="btn btn-danger">重置</button>
                 </div>
                 <div class="col-xs-6 text-center">
-                    <button type="submit" class="btn btn-info">提交</button>
+                    <button type="submit" class="btn btn-danger">提交</button>
                 </div>
             </form>
         </div>
         <p></p>
-        <p class="small text-center" style="margin-top:1.5em; color:white">版权所有©2014 华中科技大学学生会 保留所有权利</p>
+        <p class="small text-center" style="margin-top:1.5em; color:white">版权所有©2014 创青春全国大学生创业大赛 保留所有权利</p>
         <p class="small text-center" style="color:white">华中科技大学学生会新闻媒体部新媒体小组 制作</p>
 
         <div><p class="text-center"></p></div>

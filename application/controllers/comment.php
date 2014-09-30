@@ -8,7 +8,7 @@ class Comment extends CI_Controller {
     
     public function index($page = 1) {
         $data['comments'] = $this->comment_model->getComment($page);
-        $data['total_counts'] = $this->comment_model->getTotalCounts(FALSE);
+        $data['total_counts'] = $this->comment_model->getTotalCounts(TRUE);
         $data['curr_page'] = $page;
         $data['limit'] = 5;
         $data['total_pages'] = $this->comment_model->getTotalPages();

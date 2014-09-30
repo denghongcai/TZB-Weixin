@@ -9,7 +9,7 @@
         <style>
             body
             {
-                background-color:#df2b2b;
+                background-color:#29c8ff;
             }
             well{
                 background-color: #000;
@@ -44,7 +44,7 @@
             <img src="<?= base_url('img/banner.jpg') ?>" class="img-responsive center-block"/>
         </div>
         <div class="container">
-            <p style="color:white">当前共有<?=$total_counts?>人发起代言，下面是系统为您挑选出的精彩代言。欢迎加入我们，为社会主义核心价值观代言！</p>
+            <p style="color:white">当前共有<?=$total_counts?>人发起代言，下面是我们为您挑选出的精彩代言。欢迎加入我们，为创青春代言！</p>
             <?php foreach ($comments as $row) :?>
             <div class="container well">
                 <label><?=$row['Name']?></label>
@@ -71,7 +71,7 @@
             </div>
         </div>
         <p></p>
-        <p class="small text-center" style="margin-top:1.5em; color:white">版权所有©2014 华中科技大学学生会 保留所有权利</p>
+        <p class="small text-center" style="margin-top:1.5em; color:white">版权所有©2014 创青春全国大学生创业大赛 保留所有权利</p>
         <p class="small text-center" style="color:white">华中科技大学学生会新闻媒体部新媒体小组 制作</p>
 
 
