@@ -10,13 +10,18 @@
             },
             {	
                "type":"click",
-               "name":"会务安排",
+               "name":"赛事安排",
                "key":"TZB_MEETING"
             },
             {
                "type":"click",
                "name":"特别活动",
                "key":"TZB_ACTIVITY"
+            },
+            {
+               "type":"click",
+               "name":"重要通知",
+               "key":"TZB_TZ"
             }]
       },
       {	
@@ -73,9 +78,28 @@
   {
      "button":[
      {	
-          "type":"click",
-           "name":"大赛指南",
-            "key":"TZB_ZN"
+          "name":"大赛指南",
+          "sub_button":[
+           {	
+               "type":"click",
+               "name":"创青春指南",
+               "key":"TZB_GUIDE"
+            },
+            {	
+               "type":"click",
+               "name":"赛事安排",
+               "key":"TZB_MEETING"
+            },
+            {
+               "type":"click",
+               "name":"特别活动",
+               "key":"TZB_ACTIVITY"
+            },
+            {
+               "type":"click",
+               "name":"重要通知",
+               "key":"TZB_TZ"
+            }]
       },
       {	
           "name":"生活向导",

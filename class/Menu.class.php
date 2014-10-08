@@ -20,6 +20,7 @@ class Menu extends TZB_Base {
             case 'TZB_PIC':
             case 'TZB_CONNECT':
             case 'TZB_ZN':
+            case 'TZB_TZ':
                 $content = new Content($this->keyword, $page);
                 $this->returnData['type'] = 'text';
                 $this->returnData = $content->getReturn();
