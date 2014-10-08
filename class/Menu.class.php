@@ -19,6 +19,7 @@ class Menu extends TZB_Base {
             case 'TZB_TEAM':
             case 'TZB_PIC':
             case 'TZB_CONNECT':
+            case 'TZB_ZN':
                 $content = new Content($this->keyword, $page);
                 $this->returnData['type'] = 'text';
                 $this->returnData = $content->getReturn();
@@ -40,7 +41,7 @@ class Menu extends TZB_Base {
                 if($this->returnData['type'] == 'news') {
                     $item = array(
                         'Title' => '如须使用地图导航，请发送【出发地】的位置信息（如何发送位置信息？点击查看帮助~）',
-                        'Url' => '',
+                        'Url' => 'http://tzb-weixin.dhc.house/content.php?id=37',
                     );
                     array_push($this->returnData['data'], $item);
                 } else if($this->returnData['type'] == 'text'){

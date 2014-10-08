@@ -32,6 +32,6 @@ switch ($RevType) {
         $weRun->onLocation();
         break;
     default:
-        $weObj->text("help info")->reply();
+        $weObj->text("test")->reply();
 }
 

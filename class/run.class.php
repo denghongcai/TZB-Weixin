@@ -100,6 +100,7 @@ class WechatRun {
         $event = $this->weObj->getRevEvent();
         switch ($event['event']) {
             case 'subscribe':
+                $this->toSubscribe();
                 break;
 
             case 'unsubscribe':
@@ -144,7 +145,8 @@ class WechatRun {
     
     
     private function toSubscribe() {
-        
+        $this->returnData['type'] = 'text';
+        $this->returnData['data'] = '欢迎订阅创青春官方微信平台';
     }
 
     private function toUnsubscribe() {

@@ -68,3 +68,51 @@
             }]
       }]
  }
+ 
+ 
+  {
+     "button":[
+     {	
+          "type":"click",
+           "name":"大赛指南",
+            "key":"TZB_ZN"
+      },
+      {	
+          "name":"生活向导",
+          "sub_button":[
+           {	
+               "type":"click",
+               "name":"赛区导航",
+               "key":"TZB_MAP"
+            },
+            {	
+               "type":"click",
+               "name":"温馨提示",
+               "key":"TZB_WEATHER"
+            },
+            {	
+               "type":"view",
+               "name":"生活指南",
+               "url":"http://tzb-weixin.dhc.house/content.php?id=55"
+            },
+            {
+               "type":"click",
+               "name":"联系我们",
+               "key":"TZB_CONNECT"
+            }]
+      },
+      {	
+          "name":"创青春之路",
+          "sub_button":[
+           {	
+               "type":"view",
+               "name":"我要代言",
+               "url":"http://tzb-admin.dhc.house/comment/post"
+            },
+            {	
+               "type":"view",
+               "name":"精彩留言",
+               "url":"http://tzb-admin.dhc.house/comment"
+            }]
+      }]
+ }
