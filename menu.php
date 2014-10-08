@@ -126,7 +126,7 @@
             }]
       },
       {	
-          "name":"创青春之路",
+          "name":"共话创青春",
           "sub_button":[
            {	
                "type":"view",
