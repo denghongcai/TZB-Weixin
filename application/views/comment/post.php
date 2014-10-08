@@ -31,7 +31,7 @@
                 </div>
                 <div class="form-group form-horizontal row">
                     <div class="col-xs-4 text-right" style="color:white"><label for="comment">我的看法</label></div>
-                    <div class="col-xs-8 text-left"><textarea rows="5" name="comment" id="comment" placeholder="请输入您关于创青春的看法"></textarea></div>
+                    <div class="col-xs-8 text-left"><textarea rows="5" name="comment" id="comment" placeholder="请写下对“创青春”想说的话"></textarea></div>
                 </div>
                 <div class="col-xs-6 text-center">
                     <button type="reset" class="btn btn-danger">重置</button>
