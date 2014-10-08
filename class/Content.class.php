@@ -29,7 +29,7 @@ class Content extends TZB_Base {
     protected function showError($error) {
         switch ($error) {
             case self::ERROR_PAGE :
-                $content = '没有更多的内容了';
+                $content = '更多内容敬请期待～';
                 break;
             default:
                 $content  = $error;
