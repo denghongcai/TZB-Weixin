@@ -42,8 +42,8 @@
             </form>
         </div>
         <p></p>
-        <p class="small text-center" style="margin-top:1.5em; color:white">版权所有©2014 创青春全国大学生创业大赛 保留所有权利</p>
-        <p class="small text-center" style="color:white">华中科技大学学生会新闻媒体部新媒体小组 制作</p>
+        <p class="small text-center" style="margin-top:1.5em; color:white">版权所有©2014 “创青春”全国大学生创业大赛 保留所有权利</p>
+        <p class="small text-center" style="color:white">“创青春”大赛组委员宣传组新媒体小组 制作</p>
 
         <div><p class="text-center"></p></div>
         <script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
