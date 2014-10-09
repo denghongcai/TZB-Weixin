@@ -38,11 +38,14 @@ class Know extends TZB_Base {
                 $data[] = $this->db->Knowledge()->where('KNOWID', $row['KNOWID'])->limit(1)->fetch();
             }
         }
+        //不再全文搜索
+        return $data;
         if(!empty($data)) {
             return $data;
         }
         //全文搜索
-        $Knowledge = $this->db->Knowledge()->where('Question LIKE ?', '%' . $this->keyword . '%')->or('Answer LIKE ?', '%' . $this->keyword . '%');
+        //$Knowledge = $this->db->Knowledge()->where('Question LIKE ?', '%' . $this->keyword . '%')->or('Answer LIKE ?', '%' . $this->keyword . '%');
+        $Knowledge = $this->db->Knowledge()->where('Question LIKE ?', '%' . $this->keyword . '%');
         foreach ($Knowledge as $row) {
                 $data[] = $row;
         }

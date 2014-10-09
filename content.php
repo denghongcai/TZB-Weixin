@@ -10,6 +10,10 @@ if(isset($_GET['id']) && is_numeric($_GET['id'])) {
         echo "error id: " . $id;
         exit;
     }
+    $visitor = array(
+        'ContentID' => $id,
+    );
+    $db->Visitor()->insert($visitor);
 } else {
     echo "no id";exit;
 }

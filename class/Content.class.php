@@ -6,6 +6,8 @@ class Content extends TZB_Base {
     const PAGECOUNT = 7;
     const ERROR_PAGE = 'ERROR_PAGE';
     const EEEOR_KEYWORD = 'EEEOR_KEYWORD';
+    const PIC_LOGO = 'http://tzb-weixin.dhc.house/pic/logo.jpg';
+    const PIC_LOGO_BIG = 'http://tzb-weixin.dhc.house/pic/logo_big.jpg';
     
     private $db;
     
@@ -54,6 +56,7 @@ class Content extends TZB_Base {
             }
             $items = array();
             $item['Title'] = $category['CategoryName'];
+            $item['PicUrl'] = self::PIC_LOGO_BIG;
             array_push($items, $item);
             
             $contentid = $table->limit(self::PAGECOUNT, $offset);
@@ -62,8 +65,8 @@ class Content extends TZB_Base {
                 $content = $this->db->Content('CONTENTID', $id['CONTENTID'])->limit(1)->fetch();
                 $item['Title'] = $i . ". " . $content['Title'];
                 //$item['Description'] = $content['Content'];
-                $item['PicUrl'] = '';
-                $item['Url'] = SITE_ROOT . '/content.php?id=' . urlencode($id['CONTENTID']);
+                $item['PicUrl'] = self::PIC_LOGO;
+                $item['Url'] = SITE_ROOT . '/content.php?id=' . $id['CONTENTID'];
                 array_push($items, $item);
                 $i++;
             }
