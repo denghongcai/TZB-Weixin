@@ -62,6 +62,7 @@ class Content_model extends CI_Model {
         if(isset($data['Category'])){
             $contentid =  $this->db->insert_id();
             $cadata['CATEGORYID'] = $data['Category'];
+            $cadata['Indexnum'] = $data['Indexnum'];
             $query = $this->db->get_where('CategoryAssocContent', array('CONTENTID'=>$contentid));
             if($query->num_rows() > 0) {
                 $this->db->where('CONTENTID', $contentid);
