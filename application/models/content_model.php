@@ -90,4 +90,10 @@ class Content_model extends CI_Model {
         );
         return TRUE;
     }
+    
+    //获取访问量
+    function GetVisitor($contentid) {
+        $query = $this->db->get_where('Visitor', array('ContentID'=>$contentid));
+        return $query->num_rows();
+    }
 }
