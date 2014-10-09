@@ -23,7 +23,11 @@
                 <input name="Author" type="text" placeholder="请输入作者" value="<?=$data['Author']?>">
                 <button class="btn-clear" tabindex="-1" type="button"></button>
             </div>
-            
+            <div class="input-control text" data-role="input-control">
+                <input name="Indexnum" type="text" placeholder="请输入排序数字" value="<?=$data['Indexnum']?>">
+                <button class="btn-clear" tabindex="-1" type="button"></button>
+            </div>
+            <p>注：排序，数字越小越靠前，可以是任意数字（包括小数和负数）</p>
             <div class="input-control select" data-role="input-control">
                 <select name="Category">
                     <?php foreach($category as $row):?>

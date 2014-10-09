@@ -57,6 +57,7 @@ class Content_model extends CI_Model {
         $cdata['Title'] = $data['Title'];
         $cdata['Author'] = $data['Author'];
         $cdata['Content'] = $data['Content'];
+        $cdata['Indexnum'] = $data['Indexnum'];
         $this->db->replace('Content', $cdata);
         if(isset($data['Category'])){
             $contentid =  $this->db->insert_id();

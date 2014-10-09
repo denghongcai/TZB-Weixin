@@ -93,6 +93,7 @@ class Content extends MY_Controller {
                     $data['data']['Title'] = "";
                     $data['data']['Author'] = "";
                     $data['data']['Content'] = "";
+                    $data['data']['Indexnum'] = "";
                     $data['action'] = base_url('content/UpdateContent?action=Add');
                 }
                 $this->load->view('adminUpdateContent', $data);

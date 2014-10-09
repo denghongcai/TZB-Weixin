@@ -10,6 +10,7 @@
     <table class="table hovered dataTable" id="contentTables">
         <thead>
         <tr>
+            <th class="text-left">排序</th>
             <th class="text-left">标题</th>
             <th class="text-left">作者</th>
             <th class="text-left">内容</th>
@@ -22,6 +23,7 @@
         </tbody>
         <tfoot>
         <tr>
+            <th class="text-left">排序</th>
             <th class="text-left">标题</th>
             <th class="text-left">作者</th>
             <th class="text-left">内容</th>
@@ -49,6 +51,7 @@
                     'serverSide': false,
                     'ajax': ajaxUrl,
                     'columns': [
+                        {'data': 'Indexnum'},
                         {'data': 'Title'},
                         {'data': 'Author'},
                         {'data': 'Content'},
