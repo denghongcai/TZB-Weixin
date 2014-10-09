@@ -71,11 +71,13 @@ class WechatRun {
                 /*$this->returnData['type'] = 'text';
                 $this->returnData['data'] = 'hello world';
                 $this->user['state']['keyword'] = 'text';*/
-                $menu = new Menu($content);
-                $this->returnData = $menu->getReturn();
+                
+                //$menu = new Menu($content);
+                //$this->returnData = $menu->getReturn();
+                $know = new Know($content);
+                $this->returnData = $know->getReturn();
                 if(empty($this->returnData['data'])) {
-                    $know = new Know($content);
-                    $this->returnData = $know->getReturn();
+                    $this->toSubscribe();
                 }
                 break;
         }
@@ -146,7 +148,10 @@ class WechatRun {
     
     private function toSubscribe() {
         $this->returnData['type'] = 'text';
-        $this->returnData['data'] = "您好～我是本次大赛的吉祥物“创创”！\n有什么话想对我说？有什么问题想咨询？全部都告诉我吧，我一定会耐心倾听并为你解答的。\n当然，您可以进入“大赛指南--重要通知”查看大赛相关的重要信息，您也可以点击“生活助手--联系我们”找到本次大赛的相关负责人直接与他们对话噢～感谢您的关注~";
+        $this->returnData['data'] = "您好～我是本次大赛的吉祥物“创创”！\n"
+                . "有什么话想对我说？有什么问题想咨询？全部都告诉我吧，我一定会耐心倾听并为你解答的。\n"
+                . "当然，您可以进入“大赛指南--重要通知”查看大赛相关的重要信息，"
+                . "您也可以点击“生活助手--联系我们”找到本次大赛的相关负责人直接与他们对话噢～感谢您的关注~";
     }
 
     private function toUnsubscribe() {

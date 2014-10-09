@@ -47,7 +47,7 @@ class Content extends TZB_Base {
         if(empty($category)) {
             return self::EEEOR_KEYWORD;
         } else {
-            $table = $this->db->CategoryAssocContent()->where('CATEGORYID', $category['CATEGORYID'])->order('AddTime DESC');
+            $table = $this->db->CategoryAssocContent()->where('CATEGORYID', $category['CATEGORYID'])->order('Indexnum ASC, AddTime DESC');
             $pages = ceil(count($table) / self::PAGECOUNT);
             if($pages < $data['page']) {
                 return self::ERROR_PAGE;
